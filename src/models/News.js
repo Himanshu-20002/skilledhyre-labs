@@ -1,6 +1,10 @@
 import mongoose from "mongoose";
 
 const NewsSchema = new mongoose.Schema({
+  _id: {
+    type: mongoose.Schema.Types.Mixed,
+    default: () => new mongoose.Types.ObjectId(),
+  },
   title: { type: String, required: true },
   name: String, // Added based on user request
   heading: String,

@@ -1,11 +1,10 @@
 import mongoose from "mongoose";
 
-const MONGODB_URI = process.env.MONGODB_URI;
+const MONGODB_URI = process.env.NEW_MONGODB_URI || process.env.MONGODB_URI;
+const MONGODB_DB = process.env.MONGODB_DB || "blogs_news";
 
 if (!MONGODB_URI) {
-  throw new Error(
-    "Please define the MONGODB_URI environment variable in .env.local"
-  );
+  throw new Error("Please define NEW_MONGODB_URI or MONGODB_URI in .env.local");
 }
 
 let cached = global.mongoose;
@@ -21,6 +20,7 @@ export async function connectToDatabase() {
   if (!cached.promise) {
     cached.promise = mongoose
       .connect(MONGODB_URI, {
+        dbName: MONGODB_DB,
         useNewUrlParser: true,
         useUnifiedTopology: true,
       })

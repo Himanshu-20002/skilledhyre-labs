@@ -1,4 +1,5 @@
 import { connectToDatabase } from "../../../utils/db";
+import { buildIdQuery } from "../../../utils/idQuery";
 import Blog from "../../../models/Blog";
 
 export default async function handler(req, res) {
@@ -7,7 +8,7 @@ export default async function handler(req, res) {
 
   if (req.method === "GET") {
     try {
-      const blog = await Blog.findById(id);
+      const blog = await Blog.findOne(buildIdQuery(id));
       if (!blog) return res.status(404).json({ error: "Blog not found" });
       return res.status(200).json(blog);
     } catch (error) {
@@ -17,7 +18,7 @@ export default async function handler(req, res) {
 
   if (req.method === "PUT") {
     try {
-      const blog = await Blog.findByIdAndUpdate(id, req.body, {
+      const blog = await Blog.findOneAndUpdate(buildIdQuery(id), req.body, {
         new: true,
         runValidators: true,
       });
@@ -30,7 +31,7 @@ export default async function handler(req, res) {
 
   if (req.method === "DELETE") {
     try {
-      const blog = await Blog.findByIdAndDelete(id);
+      const blog = await Blog.findOneAndDelete(buildIdQuery(id));
       if (!blog) return res.status(404).json({ error: "Blog not found" });
       return res.status(200).json({ message: "Blog deleted successfully" });
     } catch (error) {
