@@ -1,6 +1,4 @@
-// Ensures the database connection is established during server startup/cold start
-// This runs once per server process (or per Lambda cold start on Vercel)
-
+// Ensures database connection is established during server startup
 export async function register() {
   try {
     const { connectToDatabase } = await import("./utils/db.js");
@@ -12,5 +10,3 @@ export async function register() {
     console.error("[instrumentation] Failed to connect to database on startup", error);
   }
 }
-
-

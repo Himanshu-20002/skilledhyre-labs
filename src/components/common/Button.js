@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ArrowRightIcon, SparklesIcon } from "@heroicons/react/24/outline";
 
 export default function Button({
   href,
@@ -7,27 +8,46 @@ export default function Button({
   icon: Icon,
   className = "",
 }) {
-  const baseStyles =
-    "inline-flex items-center justify-center px-6 py-3 text-base font-medium rounded-sm transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#0B0F19]";
-
-  const variants = {
-    primary:
-      "bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-400 hover:to-purple-500 text-white shadow-lg shadow-indigo-500/25 focus:ring-indigo-500",
-    secondary:
-      "bg-white/10 hover:bg-white/20 text-white border border-white/10 backdrop-blur-sm focus:ring-white/50",
-    outline:
-      "border border-indigo-500/50 text-indigo-400 hover:bg-indigo-500/10 hover:text-indigo-300",
-  };
-
   const Component = href ? Link : "button";
+
+  if (variant === "primary") {
+    return (
+      <Component
+        href={href}
+        className={`inline-flex items-center justify-center p-[1.5px] rounded-full bg-gradient-to-r from-[#38bdf8] via-[#6366f1] to-[#a855f7] shadow-[0_0_25px_rgba(99,102,241,0.4)] hover:shadow-[0_0_35px_rgba(99,102,241,0.7)] transition-all duration-300 transform hover:-translate-y-0.5 whitespace-nowrap group/btn ${className}`}
+      >
+        <span className="flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-[#090d18] text-white font-semibold text-sm sm:text-base transition-colors group-hover/btn:bg-[#0f1424]">
+          <SparklesIcon className="w-4 h-4 text-[#38bdf8]" />
+          <span>{children}</span>
+          {Icon ? (
+            <Icon className="w-4 h-4 text-[#38bdf8] transition-transform duration-300 group-hover/btn:translate-x-1" />
+          ) : (
+            <ArrowRightIcon className="w-4 h-4 text-[#38bdf8] transition-transform duration-300 group-hover/btn:translate-x-1" />
+          )}
+        </span>
+      </Component>
+    );
+  }
+
+  if (variant === "secondary") {
+    return (
+      <Component
+        href={href}
+        className={`inline-flex items-center justify-center px-6 py-3.5 rounded-full bg-[#121624]/90 border border-[#6366f1]/35 text-gray-200 font-semibold text-sm sm:text-base hover:text-white hover:border-[#6366f1]/70 hover:bg-[#6366f1]/15 hover:shadow-[0_0_20px_rgba(99,102,241,0.3)] transition-all duration-300 transform hover:-translate-y-0.5 whitespace-nowrap ${className}`}
+      >
+        <span>{children}</span>
+        {Icon && <Icon className="w-4 h-4 ml-2 transition-transform duration-300 group-hover:translate-x-1" />}
+      </Component>
+    );
+  }
 
   return (
     <Component
       href={href}
-      className={`${baseStyles} ${variants[variant]} ${className}`}
+      className={`inline-flex items-center justify-center px-6 py-3 rounded-full border border-[#6366f1]/40 text-[#818cf8] font-semibold text-sm hover:bg-[#6366f1]/10 hover:text-white transition-all duration-300 ${className}`}
     >
       {children}
-      {Icon && <Icon className="w-5 h-5 ml-2 -mr-1" aria-hidden="true" />}
+      {Icon && <Icon className="w-4 h-4 ml-2" />}
     </Component>
   );
 }

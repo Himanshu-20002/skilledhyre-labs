@@ -61,3 +61,61 @@ body {
   scrollbar-width: none;
   /* Firefox */
 }
+
+@keyframes arrowLaunchWithDelay {
+
+  0%,
+  40% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  70% {
+    transform: translateY(-160%);
+    opacity: 1;
+  }
+
+  71% {
+    transform: translateY(160%);
+    opacity: 0;
+  }
+
+  74% {
+    transform: translateY(160%);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-arrow-delay-launch {
+  animation: arrowLaunchWithDelay 2.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes textShimmerSweep {
+  0% {
+    background-position: 100% 0;
+  }
+
+  100% {
+    background-position: -100% 0;
+  }
+}
+
+.animate-shimmer-sweep {
+  background: linear-gradient(90deg,
+      rgba(255, 255, 255, 0.08) 0%,
+      rgba(255, 255, 255, 0.08) 35%,
+      rgba(255, 255, 255, 0.55) 50%,
+      rgba(255, 255, 255, 0.08) 65%,
+      rgba(255, 255, 255, 0.08) 100%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  will-change: background-position;
+  transform: translateZ(0);
+  animation: textShimmerSweep 3.9s linear infinite;
+}
