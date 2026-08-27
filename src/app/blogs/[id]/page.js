@@ -1,51 +1,111 @@
-"use client";
+import { notFound } from "next/navigation";
+import { connectToDatabase } from "@/utils/db";
+import Blog from "@/models/Blog";
+import Section from "@/components/common/Section";
+import JsonLd from "@/components/common/JsonLd";
 
-import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
-import Section from "../../../components/common/Section";
-import Image from "next/image";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://skilledhyrelabs.com";
 
-export default function BlogDetailPage() {
-  const params = useParams();
-  const id = params?.id;
-  const [blog, setBlog] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+// Server-side dynamic metadata for Google and social media preview cards
+export async function generateMetadata({ params }) {
+  const { id } = await params;
+  if (!id) return {};
 
-  useEffect(() => {
-    if (!id) return;
-    const fetchBlog = async () => {
-      try {
-        const res = await fetch(`/api/blogs/${id}`);
-        if (res.ok) {
-          const data = await res.json();
-          console.log("data for this >> ", data);
+  try {
+    await connectToDatabase();
+    const blog = await Blog.findById(id).lean();
+    if (!blog) return {};
 
-          setBlog(data);
-        } else {
-          console.error("Failed to fetch blog");
-        }
-      } catch (error) {
-        console.error("Error fetching blog:", error);
-      } finally {
-        setIsLoading(false);
-      }
+    const title = `${blog.title} | SkilledHyre Labs`;
+    const description =
+      blog.shortDescription ||
+      blog.heading ||
+      "Explore engineering insights, digital architectures, and AI technology trends from SkilledHyre Labs.";
+    const imageUrl = blog.cardImage || `${siteUrl}/logo_clean.png`;
+
+    return {
+      title,
+      description,
+      alternates: {
+        canonical: `/blogs/${id}`,
+      },
+      openGraph: {
+        title,
+        description,
+        url: `${siteUrl}/blogs/${id}`,
+        siteName: "SkilledHyre Labs",
+        type: "article",
+        publishedTime: blog.createdAt,
+        modifiedTime: blog.updatedAt || blog.createdAt,
+        images: [
+          {
+            url: imageUrl,
+            width: 1200,
+            height: 630,
+            alt: blog.title,
+          },
+        ],
+      },
+      twitter: {
+        card: "summary_large_image",
+        title,
+        description,
+        images: [imageUrl],
+        creator: "@SkilledHyreLabs",
+      },
     };
-    fetchBlog();
-  }, [id]);
+  } catch (error) {
+    console.error("[generateMetadata] Error fetching blog:", error);
+    return {};
+  }
+}
 
-  if (isLoading)
-    return (
-      <div className="pt-32 pb-20 text-center text-gray-400">Loading...</div>
-    );
-  if (!blog)
-    return (
-      <div className="pt-32 pb-20 text-center text-gray-400">
-        Blog not found
-      </div>
-    );
+export default async function BlogDetailPage({ params }) {
+  const { id } = await params;
+  if (!id) notFound();
+
+  await connectToDatabase();
+  let blog = null;
+  try {
+    blog = await Blog.findById(id).lean();
+  } catch (error) {
+    console.error("Error fetching blog:", error);
+  }
+
+  if (!blog) {
+    notFound();
+  }
+
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: blog.title,
+    description: blog.shortDescription || blog.heading || blog.title,
+    image: blog.cardImage || `${siteUrl}/logo_clean.png`,
+    datePublished: blog.createdAt,
+    dateModified: blog.updatedAt || blog.createdAt,
+    author: {
+      "@type": "Organization",
+      name: "SkilledHyre Labs",
+      url: siteUrl,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "SkilledHyre Labs",
+      logo: {
+        "@type": "ImageObject",
+        url: `${siteUrl}/logo_clean.png`,
+      },
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `${siteUrl}/blogs/${id}`,
+    },
+  };
 
   return (
     <article className="pt-12 pb-10">
+      <JsonLd data={articleSchema} />
       <Section>
         <div className="max-w-[800px] mx-auto px-6">
           {/* Header */}
@@ -68,15 +128,6 @@ export default function BlogDetailPage() {
 
           {/* Featured Image */}
           {blog.cardImage && (
-            // <div className="relative w-full h-[400px] mb-12 rounded-2xl overflow-hidden shadow-2xl shadow-indigo-500/10">
-            //   <Image
-            //     src={blog.cardImage}
-            //     alt={blog.title}
-            //     fill
-            //     style={{ objectFit: "cover" }}
-            //     className="hover:scale-105 transition-transform duration-700"
-            //   />
-            // </div>
             <div className="relative w-full h-[400px] mb-12 rounded-2xl overflow-hidden shadow-2xl shadow-indigo-500/10">
               <img
                 src={blog.cardImage}
@@ -86,39 +137,19 @@ export default function BlogDetailPage() {
             </div>
           )}
 
-          {/* Content */}
-          {/* <div
-            className="prose prose-invert prose-lg max-w-none prose-indigo prose-headings:text-white prose-p:text-gray-300 prose-strong:text-white prose-a:text-indigo-400 hover:prose-a:text-indigo-300"
-            dangerouslySetInnerHTML={{ __html: blog.content }}
-          /> */}
-
-          {/* <div>
-            {blog?.sections &&
-              Array.isArray(blog.sections) &&
-              blog.sections.map((section, index) => (
-                <div key={index}>
-                  <div dangerouslySetInnerHTML={{ __html: section.html }} />
-                </div>
-              ))}
-          </div> */}
-
+          {/* Content / Rich Sections */}
           <div className="space-y-10">
             {blog?.sections &&
               Array.isArray(blog.sections) &&
               blog.sections.map((section, index) => (
                 <div
                   key={index}
-                  className="relative  
-                  
-                   backdrop-blur-sm"
+                  className="relative backdrop-blur-sm"
                   style={{
                     padding: "0 0 0 5%",
                     margin: 0,
                   }}
                 >
-                  {/* Optional left accent */}
-                  {/* <span className="absolute left-0 top-6 h-[calc(100%-3rem)] w-1  rounded-r" /> */}
-
                   <div
                     className="max-w-none"
                     dangerouslySetInnerHTML={{ __html: section.html }}

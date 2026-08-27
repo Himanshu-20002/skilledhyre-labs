@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 
 // Sleek Matrix Cyber Digits & Hex Symbols
-const MATRIX_CHARS = "0123456789ABCDEF0123456789XYZ";
+const MATRIX_CHARS = "456789ABCDEF0123456789XYZ";
 
 export default function MatrixTextRotator({
-  words = ["Intelligence.", "Innovation.", "Architectures.", "Platforms.", "Solutions."],
-  interval = 2000,
-  scrambleSpeed = 20,
+  words = ["Intelligence.", "Architectures.", "Cloud Systems.", "AI Platforms.", "Automations."],
+  interval = 2600,
+  scrambleSpeed = 35,
   className = "",
 }) {
   const [wordIndex, setWordIndex] = useState(0);
@@ -58,7 +58,7 @@ export default function MatrixTextRotator({
 
   return (
     <span
-      className={`inline-block font-mono tracking-tight font-bold not-italic text-[#818cf8] drop-shadow-[0_0_25px_rgba(99,102,241,0.7)] transition-all duration-100 ${className}`}
+      className={`inline-block whitespace-nowrap font-mono tracking-tight font-bold not-italic drop-shadow-[0_0_30px_rgba(168,85,247,0.6)] transition-all duration-100 ${className}`}
     >
       {displayText}
     </span>

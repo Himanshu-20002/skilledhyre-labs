@@ -441,11 +441,23 @@ export function ServicesScroll({
   return (
     <section
       ref={sectionRef}
-      className={`services-section ${revealed ? 'services-revealed' : ''} ${className}`.trim()}
+      className={`services-section relative  ${revealed ? 'services-revealed' : ''} ${className}`.trim()}
       id={id}
       aria-labelledby={`${id}-heading`}
     >
-      <div ref={introRef} className={`services-intro ${introRevealed ? 'intro-revealed' : ''}`}>
+      {/* Ambient Glowing Gradient Orbs */}
+      <div className="absolute inset-0 pointer-events-none select-none z-0">
+        {/* Top-Right Glowing Purple Sphere */}
+        <div className="absolute -top-32 -right-32 w-[600px] h-[600px] rounded-full bg-purple-600/25 blur-[140px] pointer-events-none" />
+
+        {/* Mid-Left Glowing Indigo/Cyan Sphere */}
+        <div className="absolute top-[35%] -left-40 w-[650px] h-[650px] rounded-full bg-indigo-600/25 blur-[150px] pointer-events-none" />
+
+        {/* Bottom-Right Glowing Violet Sphere */}
+        <div className="absolute -bottom-32 -right-20 w-[550px] h-[550px] rounded-full bg-purple-500/20 blur-[130px] pointer-events-none" />
+      </div>
+
+      <div ref={introRef} className={`services-intro relative z-10 ${introRevealed ? 'intro-revealed' : ''}`}>
         <div>
           <p className="section-kicker reveal-text">{capabilitiesKicker}</p>
           <h2 id={`${id}-heading`} className="reveal-text">{capabilitiesTitle}</h2>

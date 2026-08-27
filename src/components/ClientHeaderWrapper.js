@@ -15,7 +15,7 @@ export default function ClientHeaderWrapper({ children }) {
     <>
       {!isAdminPage && <Header />}
       {!isAdminPage ? (
-        <main className="flex-grow pt-20">{children}</main>
+        <main className="flex-grow">{children}</main>
       ) : (
         children
       )}

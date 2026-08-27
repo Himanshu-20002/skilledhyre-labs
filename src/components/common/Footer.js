@@ -135,7 +135,7 @@ export default function Footer() {
         {/* Top-left Indigo Nebula Glow */}
         <div className="absolute -top-24 -left-20 w-[700px] h-[700px] bg-[radial-gradient(circle,_rgba(99,102,241,0.22)_0%,_rgba(124,58,237,0.12)_45%,_transparent_70%)] blur-3xl pointer-events-none" />
         {/* Top-right Cyan Nebula Glow */}
-        <div className="absolute top-10 -right-20 w-[650px] h-[650px] bg-[radial-gradient(circle,_rgba(56,189,248,0.2)_0%,_rgba(99,102,241,0.1)_45%,_transparent_70%)] blur-3xl pointer-events-none" />
+        <div className="absolute top-10 -right-20 w-[650px] h-[650px] bg-[radial-gradient(circle,_rgba(99,102,241,0.22)_0%,_rgba(124,58,237,0.12)_45%,_transparent_70%)] blur-3xl pointer-events-none" />
         {/* Fine technical blueprint grid overlay */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:3.5rem_3.5rem] opacity-50" />
       </div>

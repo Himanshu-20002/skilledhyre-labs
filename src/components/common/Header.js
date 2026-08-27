@@ -158,10 +158,8 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed w-full top-0 z-50 transition-all duration-300 ${scrolled
-        ? "py-3 bg-[#0A0F19]/80 backdrop-blur-xl border-b border-white/10 shadow-2xl shadow-cyan-950/20"
-        : "py-5 bg-[#0A0F19]/60 backdrop-blur-md border-b border-white/5"
-        }`}
+      className={"fixed w-full top-0 z-50 transition-all duration-300 py-5 bg-transparent border-b border-transparent"
+      }
     >
       <nav
         className="container mx-auto px-4 sm:px-6 flex items-center justify-between max-w-[1240px]"

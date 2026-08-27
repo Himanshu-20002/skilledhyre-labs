@@ -11,6 +11,7 @@
   "dependencies": {
     "@base-ui/react": "^1.7.0",
     "@excalidraw/excalidraw": "^0.18.0",
+    "@gsap/react": "^2.1.2",
     "@heroicons/react": "^2.2.0",
     "@lexical/code-shiki": "^0.39.0",
     "@lexical/file": "^0.39.0",
