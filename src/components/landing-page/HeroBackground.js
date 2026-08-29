@@ -96,12 +96,11 @@ export default function HeroBackground() {
         }}
       />
 
-      {/* 2. Top-Center Radiant Spotlight Beam */}
+      {/* 2. Top-Center Radiant Spotlight Beam (100% GPU Hardware-Accelerated Gradient, Zero Filter Overhead) */}
       <div
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[550px] pointer-events-none transform-gpu animate-spotlight"
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[550px] pointer-events-none transform-gpu animate-spotlight will-change-transform"
         style={{
-          background: `radial-gradient(ellipse 65% 85% at 50% 0%, rgba(192, 132, 252, 0.32) 0%, rgba(168, 85, 247, 0.16) 40%, rgba(99, 102, 241, 0.04) 70%, transparent 100%)`,
-          filter: "blur(20px)",
+          background: `radial-gradient(ellipse 65% 85% at 50% 0%, rgba(192, 132, 252, 0.3) 0%, rgba(168, 85, 247, 0.15) 35%, rgba(99, 102, 241, 0.04) 65%, transparent 95%)`,
         }}
       />
 

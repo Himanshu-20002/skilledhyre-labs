@@ -8,9 +8,18 @@ import Industries from "../../components/tech-talent/Industries";
 import CTA from "../../components/tech-talent/CTA";
 
 export const metadata = {
-  title: "Tech Talent Solutions | SkilledHyre Labs",
+  title: "Tech Talent & Dedicated Engineering Pods",
   description:
-    "Access elite technology experts and accelerate innovation. Explore our flexible engagement models for your engineering needs.",
+    "Hire pre-vetted senior software engineers, AI developers, and cloud architects to accelerate your product roadmap with SkilledHyre Labs.",
+  alternates: {
+    canonical: "/tech-talent",
+  },
+  openGraph: {
+    title: "Tech Talent & Dedicated Engineering Pods | SkilledHyre Labs",
+    description:
+      "Hire pre-vetted senior software engineers, AI developers, and cloud architects to accelerate your product roadmap with SkilledHyre Labs.",
+    url: "/tech-talent",
+  },
 };
 
 export default function TechTalentPage() {

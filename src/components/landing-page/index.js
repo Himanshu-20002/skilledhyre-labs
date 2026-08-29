@@ -5,3 +5,4 @@ export { default as IndustriesSection } from "./IndustriesSection";
 export { default as StatsSection } from "./StatsSection";
 export { default as InsightsSection } from "./InsightsSection";
 export { default as NewsSection } from "./NewsSection";
+export { default as ContentCarouselSection } from "./ContentCarouselSection";

@@ -8,9 +8,18 @@ import Industries from "../../../components/custom-software/Industries";
 import CTA from "../../../components/custom-software/CTA";
 
 export const metadata = {
-  title: "Custom Software Development | SkilledHyre Labs",
+  title: "Custom Software Development",
   description:
-    "Tailored, scalable, and high-performance applications designed specifically for your business workflows. Engineered for impact by SkilledHyre Labs.",
+    "Tailored, scalable, and high-performance software applications designed specifically for your enterprise workflows by SkilledHyre Labs.",
+  alternates: {
+    canonical: "/services/custom-software",
+  },
+  openGraph: {
+    title: "Custom Software Development | SkilledHyre Labs",
+    description:
+      "Tailored, scalable, and high-performance software applications designed specifically for your enterprise workflows by SkilledHyre Labs.",
+    url: "/services/custom-software",
+  },
 };
 
 export default function CustomSoftwarePage() {

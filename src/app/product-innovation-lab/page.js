@@ -1,3 +1,18 @@
+export const metadata = {
+  title: "Product Innovation Lab | MVP & SaaS Incubation",
+  description:
+    "SkilledHyre Labs' Product Innovation Lab builds production-grade digital ventures, high-speed MVPs, and market-ready SaaS applications.",
+  alternates: {
+    canonical: "/product-innovation-lab",
+  },
+  openGraph: {
+    title: "Product Innovation Lab | MVP & SaaS Incubation",
+    description:
+      "Transforming disruptive concepts into scalable, production-grade digital products and SaaS platforms.",
+    url: "/product-innovation-lab",
+  },
+};
+
 export default function ProductInnovationLab() {
   return (
     <div

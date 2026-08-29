@@ -1,8 +1,12 @@
 import Section from "../../components/common/Section";
 
 export const metadata = {
-  title: "Terms & Conditions | SkilledHyre Labs",
-  description: "Terms & Conditions for SkilledHyre Labs.",
+  title: "Terms & Conditions",
+  description:
+    "Terms and conditions for utilizing services, software platforms, and digital resources provided by SkilledHyre Labs.",
+  alternates: {
+    canonical: "/terms",
+  },
 };
 
 export default function TermsPage() {

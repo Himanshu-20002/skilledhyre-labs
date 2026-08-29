@@ -4,26 +4,21 @@ import "./globals.css";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://skilledhyrelabs.com";
 
+export const viewport = {
+  themeColor: "#07040d",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+};
+
 export const metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "SkilledHyre Labs | Enterprise AI & Software Engineering",
+    default: "SkilledHyre Labs | AI & Software Engineering",
     template: "%s | SkilledHyre Labs",
   },
   description:
-    "SkilledHyre Labs architects high-performance AI engines, scalable cloud platforms, and intelligent digital systems for high-growth enterprises.",
-  keywords: [
-    "AI Engineering",
-    "Enterprise Software",
-    "Cloud Systems",
-    "Digital Transformation",
-    "Generative AI",
-    "Machine Learning",
-    "SAP Consulting",
-    "ERP Solutions",
-    "SkilledHyre Labs",
-    "On-Demand Tech Talent",
-  ],
+    "SkilledHyre Labs builds high-performance AI systems, scalable software products, SaaS platforms, and intelligent digital architectures for modern enterprises.",
   authors: [{ name: "SkilledHyre Labs", url: siteUrl }],
   creator: "SkilledHyre Labs",
   publisher: "SkilledHyre Labs",
@@ -42,22 +37,22 @@ export const metadata = {
     siteName: "SkilledHyre Labs",
     title: "SkilledHyre Labs | Enterprise AI & Software Engineering",
     description:
-      "Architecting high-performance AI engines, scalable cloud software, and intelligent digital systems for high-growth enterprises.",
+      "SkilledHyre Labs builds high-performance AI systems, scalable software products, SaaS platforms, and intelligent digital architectures for modern enterprises.",
     images: [
       {
-        url: "/logo_clean.png",
+        url: `${siteUrl}/logo_clean.png`,
         width: 1200,
         height: 630,
-        alt: "SkilledHyre Labs - Enterprise AI Lab",
+        alt: "SkilledHyre Labs — AI & Software Engineering",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "SkilledHyre Labs | Enterprise AI & Software Engineering",
+    title: "SkilledHyre Labs | AI & Software Engineering",
     description:
-      "Architecting high-performance AI engines, scalable cloud software, and intelligent digital systems for high-growth enterprises.",
-    images: ["/logo_clean.png"],
+      "SkilledHyre Labs builds high-performance AI systems, scalable software products, SaaS platforms, and intelligent digital architectures for modern enterprises.",
+    images: [`${siteUrl}/logo_clean.png`],
     creator: "@SkilledHyreLabs",
   },
   robots: {
@@ -74,6 +69,14 @@ export const metadata = {
   icons: {
     icon: "/favicon.ico",
     apple: "/favicon.ico",
+  },
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || "google-site-verification-token",
+    yandex: process.env.NEXT_PUBLIC_YANDEX_VERIFICATION,
+    yahoo: process.env.NEXT_PUBLIC_YAHOO_VERIFICATION,
+    other: {
+      "msvalidate.01": process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION || "bing-site-verification-token",
+    },
   },
 };
 
@@ -113,16 +116,21 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        <JsonLd data={organizationSchema} />
-        <JsonLd data={websiteSchema} />
+        <meta
+          name="description"
+          content="SkilledHyre Labs builds high-performance AI systems, scalable software products, SaaS platforms, and intelligent digital architectures for modern enterprises."
+        />
       </head>
       <body
         className="antialiased min-h-screen flex flex-col font-sans"
         suppressHydrationWarning={true}
       >
+        <JsonLd data={organizationSchema} />
+        <JsonLd data={websiteSchema} />
         {/* Client component handles admin detection */}
         <ClientHeaderWrapper>{children}</ClientHeaderWrapper>
       </body>
     </html>
   );
 }
+

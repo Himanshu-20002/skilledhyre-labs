@@ -8,9 +8,18 @@ import Industries from "../../../components/product-engineering/Industries";
 import CTA from "../../../components/product-engineering/CTA";
 
 export const metadata = {
-  title: "Product Engineering | SkilledHyre Labs",
+  title: "Product Engineering",
   description:
-    "Build modern, scalable digital products with our comprehensive product engineering services. Engineered for impact by SkilledHyre Labs.",
+    "End-to-end digital product engineering from architecture and UI/UX design to full-stack implementation and market scaling by SkilledHyre Labs.",
+  alternates: {
+    canonical: "/services/product-engineering",
+  },
+  openGraph: {
+    title: "Product Engineering | SkilledHyre Labs",
+    description:
+      "End-to-end digital product engineering from architecture and UI/UX design to full-stack implementation and market scaling by SkilledHyre Labs.",
+    url: "/services/product-engineering",
+  },
 };
 
 export default function ProductEngineeringPage() {

@@ -16,7 +16,7 @@ export async function generateMetadata({ params }) {
     const news = await News.findById(id).lean();
     if (!news) return {};
 
-    const title = `${news.title} | SkilledHyre Labs News`;
+    const title = news.title;
     const description =
       news.shortDescription ||
       news.heading ||

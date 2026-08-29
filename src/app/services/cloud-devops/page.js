@@ -8,9 +8,18 @@ import Industries from "../../../components/cloud-devops/Industries";
 import CTA from "../../../components/cloud-devops/CTA";
 
 export const metadata = {
-  title: "Cloud & DevOps Engineering | SkilledHyre Labs",
+  title: "Cloud & DevOps Engineering",
   description:
-    "Scale with confidence and automate with precision. Explore our resilient and cost-optimized Cloud & DevOps Engineering solutions.",
+    "Scale cloud infrastructure with confidence. Automated CI/CD pipelines, Kubernetes orchestration, and resilient cloud architectures by SkilledHyre Labs.",
+  alternates: {
+    canonical: "/services/cloud-devops",
+  },
+  openGraph: {
+    title: "Cloud & DevOps Engineering | SkilledHyre Labs",
+    description:
+      "Automated CI/CD pipelines, Kubernetes orchestration, and resilient cloud architectures by SkilledHyre Labs.",
+    url: "/services/cloud-devops",
+  },
 };
 
 export default function CloudDevOpsPage() {

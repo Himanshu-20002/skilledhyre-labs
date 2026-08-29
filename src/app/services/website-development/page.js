@@ -8,9 +8,18 @@ import Industries from "../../../components/website-development/Industries";
 import CTA from "../../../components/website-development/CTA";
 
 export const metadata = {
-  title: "Website Development | SkilledHyre Labs",
+  title: "Web Application Development",
   description:
-    "Build powerful digital experiences and drive engagement with our high-performance website development services.",
+    "High-speed, responsive web applications and enterprise platforms built with Next.js, React, and modern full-stack architectures by SkilledHyre Labs.",
+  alternates: {
+    canonical: "/services/website-development",
+  },
+  openGraph: {
+    title: "Web Application Development | SkilledHyre Labs",
+    description:
+      "High-speed, responsive web applications and enterprise platforms built with Next.js, React, and modern full-stack architectures.",
+    url: "/services/website-development",
+  },
 };
 
 export default function WebsiteDevelopmentPage() {

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import SkilledHyreLogo from "@/components/common/SkilledHyreLogo";
 
@@ -142,35 +143,37 @@ export default function Footer() {
 
       <div className="relative container mx-auto px-6 pt-12 pb-6 max-w-[1200px]">
         {/* Pre-Footer Luminous Glass Card Banner */}
-        <div className="relative mb-14 p-8 sm:p-12 lg:p-14 rounded-3xl bg-gradient-to-br from-[#0f172a]/95 via-[#131d36]/90 to-[#0b1120]/95 border border-[#6366f1]/35 shadow-[0_0_50px_rgba(99,102,241,0.22)] backdrop-blur-2xl overflow-hidden group">
+        <div className="relative mb-14 p-6 sm:p-12 lg:p-14 rounded-2xl sm:rounded-3xl bg-gradient-to-br from-[#0f172a]/95 via-[#131d36]/90 to-[#0b1120]/95 border border-[#6366f1]/35 shadow-[0_0_50px_rgba(99,102,241,0.22)] backdrop-blur-2xl overflow-hidden group">
           {/* Right-Side Live Animated SaaS Glass Tiles Grid Matrix */}
-          <div className="absolute right-[-10px] sm:right-6 top-1/2 -translate-y-1/2 pointer-events-none overflow-hidden [mask-image:radial-gradient(ellipse_at_right,white_45%,transparent_85%)] opacity-80">
+          <div className="absolute -right-6 sm:right-6 top-1/2 -translate-y-1/2 pointer-events-none overflow-hidden [mask-image:radial-gradient(ellipse_at_right,white_45%,transparent_85%)] opacity-35 sm:opacity-80">
             {/* Ambient soft glow highlight behind action button */}
-            <div className="absolute top-2 right-12 w-72 h-72 bg-[#6366f1]/20 rounded-full blur-3xl pointer-events-none animate-pulse" />
+            <div className="absolute top-2 right-12 w-48 sm:w-72 h-48 sm:h-72 bg-[#6366f1]/20 rounded-full blur-3xl pointer-events-none animate-pulse" />
 
             {/* Live Animated SaaS Tiles Grid */}
             <AnimatedSaaSTiles />
           </div>
 
-          <div className="relative z-10 flex flex-col gap-8 sm:gap-10">
+          <div className="relative z-10 flex flex-col gap-6 sm:gap-10">
             {/* Top Row: Logo Emblem (Left) & Capsule Action Button (Right) */}
-            <div className="flex items-center justify-between gap-6">
+            <div className="flex items-center justify-between gap-4">
               {/* Brand Logo */}
               <Link href="/" className="inline-flex items-center group">
-                <img
+                <Image
                   src="/logo_new (2).png"
                   alt="SkilledHyre Labs Logo"
-                  className="h-16 sm:h-22 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+                  width={200}
+                  height={60}
+                  className="h-10 sm:h-20 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
                 />
               </Link>
 
               {/* Glowing Glass Capsule CTA Button ("Let's Collaborate ▲") */}
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-3 px-5 sm:px-6 py-3 rounded-full bg-white/[0.12] hover:bg-white/[0.2] border border-white/30 text-white font-semibold text-sm sm:text-base backdrop-blur-xl shadow-[0_0_30px_rgba(255,255,255,0.12)] hover:shadow-[0_0_40px_rgba(99,102,241,0.5)] transition-all duration-300 transform hover:-translate-y-0.5 group/btn"
+                className="inline-flex items-center gap-2 sm:gap-3 px-3.5 sm:px-6 py-2 sm:py-3 rounded-full bg-white/[0.12] hover:bg-white/[0.2] border border-white/30 text-white font-semibold text-xs sm:text-base backdrop-blur-xl shadow-[0_0_30px_rgba(255,255,255,0.12)] hover:shadow-[0_0_40px_rgba(99,102,241,0.5)] transition-all duration-300 transform hover:-translate-y-0.5 group/btn whitespace-nowrap"
               >
                 <span>Let’s Collaborate</span>
-                <span className="w-7 h-7 rounded-full bg-white text-black flex items-center justify-center font-bold text-xs shadow-md transition-all duration-300 group-hover/btn:bg-cyan-300 group-hover/btn:shadow-[0_0_15px_rgba(56,189,248,0.6)] overflow-hidden">
+                <span className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-white text-black flex items-center justify-center font-bold text-[10px] sm:text-xs shadow-md transition-all duration-300 group-hover/btn:bg-cyan-300 group-hover/btn:shadow-[0_0_15px_rgba(56,189,248,0.6)] overflow-hidden flex-shrink-0">
                   <span className="inline-block animate-arrow-delay-launch">
                     ▲
                   </span>
@@ -180,25 +183,25 @@ export default function Footer() {
 
             {/* Middle Row: Large Editorial Headline */}
             <div>
-              <h2 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-[1.2] sm:leading-[1.16] max-w-3xl">
+              <h2 className="text-xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-[1.22] sm:leading-[1.16] max-w-3xl">
                 Design & Engineering Partner for High-Quality SaaS, AI & Digital Products
               </h2>
             </div>
 
             {/* Bottom Row: Verification Pill Badges */}
-            <div className="flex flex-wrap items-center gap-3 sm:gap-4 pt-2">
+            <div className="flex flex-wrap items-center gap-2.5 sm:gap-4 pt-1">
               {/* Badge 1: 50+ Projects Completed */}
-              <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/[0.08] border border-white/15 text-xs sm:text-sm font-medium text-gray-200 backdrop-blur-md">
+              <div className="inline-flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-white/[0.08] border border-white/15 text-[11px] sm:text-sm font-medium text-gray-200 backdrop-blur-md">
                 <div className="flex -space-x-1.5 overflow-hidden">
-                  <span className="inline-block w-3.5 h-3.5 rounded-full bg-[#38bdf8] ring-2 ring-[#080b13]" />
-                  <span className="inline-block w-3.5 h-3.5 rounded-full bg-[#6366f1] ring-2 ring-[#080b13]" />
-                  <span className="inline-block w-3.5 h-3.5 rounded-full bg-[#a855f7] ring-2 ring-[#080b13]" />
+                  <span className="inline-block w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-full bg-[#38bdf8] ring-2 ring-[#080b13]" />
+                  <span className="inline-block w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-full bg-[#6366f1] ring-2 ring-[#080b13]" />
+                  <span className="inline-block w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-full bg-[#a855f7] ring-2 ring-[#080b13]" />
                 </div>
                 <span className="font-semibold text-white">50+ Projects Completed</span>
               </div>
 
               {/* Badge 2: 5.0 Verified Excellence */}
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.08] border border-white/15 text-xs sm:text-sm font-medium text-gray-200 backdrop-blur-md">
+              <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-white/[0.08] border border-white/15 text-[11px] sm:text-sm font-medium text-gray-200 backdrop-blur-md">
                 <span className="font-bold text-amber-400">5.0</span>
                 <span>Verified by</span>
                 <span className="font-bold text-white tracking-wide">Clutch</span>

@@ -11,6 +11,21 @@ import Section from "../../components/common/Section";
 import Card from "../../components/common/Card";
 import Button from "../../components/common/Button";
 
+export const metadata = {
+  title: "End-to-End Software Engineering & Delivery",
+  description:
+    "Full-lifecycle software engineering from discovery and UI/UX design to cloud backend architectures and DevOps scaling by SkilledHyre Labs.",
+  alternates: {
+    canonical: "/end-to-end",
+  },
+  openGraph: {
+    title: "End-to-End Software Engineering & Delivery | SkilledHyre Labs",
+    description:
+      "Full-lifecycle software engineering from discovery and UI/UX design to cloud backend architectures and DevOps scaling.",
+    url: "/end-to-end",
+  },
+};
+
 export default function EndToEnd() {
   const steps = [
     {

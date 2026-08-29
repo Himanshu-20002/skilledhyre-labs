@@ -8,9 +8,18 @@ import Industries from "../../../components/mobile-app-development/Industries";
 import CTA from "../../../components/mobile-app-development/CTA";
 
 export const metadata = {
-  title: "Mobile App Development | SkilledHyre Labs",
+  title: "Mobile App Development",
   description:
-    "Build engaging mobile experiences and drive user growth with our native and cross-platform mobile app development services.",
+    "Native iOS, Android, and cross-platform Flutter/React Native mobile applications engineered for high performance, smooth UX, and enterprise scale.",
+  alternates: {
+    canonical: "/services/mobile-app-development",
+  },
+  openGraph: {
+    title: "Mobile App Development | SkilledHyre Labs",
+    description:
+      "Native iOS, Android, and cross-platform Flutter/React Native mobile applications engineered for high performance and enterprise scale.",
+    url: "/services/mobile-app-development",
+  },
 };
 
 export default function MobileAppDevelopmentPage() {

@@ -9,9 +9,18 @@ import Industries from "../../../components/generative-ai/Industries";
 import CTA from "../../../components/generative-ai/CTA";
 
 export const metadata = {
-  title: "AI Generative Solutions | SkilledHyre Labs",
+  title: "Generative AI Development",
   description:
-    "Create. Automate. Personalize. Scale with Generative Intelligence.",
+    "Custom LLM applications, retrieval-augmented generation (RAG), and generative AI systems engineered for enterprise automation by SkilledHyre Labs.",
+  alternates: {
+    canonical: "/ai-engineering/generative-ai",
+  },
+  openGraph: {
+    title: "Generative AI Development | SkilledHyre Labs",
+    description:
+      "Custom LLM applications, retrieval-augmented generation (RAG), and generative AI systems engineered for enterprise automation.",
+    url: "/ai-engineering/generative-ai",
+  },
 };
 
 export default function GenerativeAIPage() {

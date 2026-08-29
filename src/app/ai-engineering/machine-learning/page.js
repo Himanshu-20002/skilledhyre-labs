@@ -9,8 +9,18 @@ import Industries from "../../../components/machine-learning/Industries";
 import CTA from "../../../components/machine-learning/CTA";
 
 export const metadata = {
-  title: "Machine Learning Engineering | SkilledHyre Labs",
-  description: "Build Intelligent Systems That Learn, Adapt & Scale",
+  title: "Machine Learning Engineering",
+  description:
+    "Production-grade Machine Learning models, MLOps pipelines, computer vision, and predictive systems engineered for enterprise scale by SkilledHyre Labs.",
+  alternates: {
+    canonical: "/ai-engineering/machine-learning",
+  },
+  openGraph: {
+    title: "Machine Learning Engineering | SkilledHyre Labs",
+    description:
+      "Production-grade Machine Learning models, MLOps pipelines, computer vision, and predictive systems engineered for enterprise scale.",
+    url: "/ai-engineering/machine-learning",
+  },
 };
 
 export default function MachineLearningPage() {

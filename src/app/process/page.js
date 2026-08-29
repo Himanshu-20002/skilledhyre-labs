@@ -1,3 +1,18 @@
+export const metadata = {
+  title: "Engineering Process & Delivery Lifecycle",
+  description:
+    "Discover SkilledHyre Labs' 5-stage software delivery framework: Discovery, Architecture Design, Agile Sprint Execution, QA, and Cloud Deployment.",
+  alternates: {
+    canonical: "/process",
+  },
+  openGraph: {
+    title: "Engineering Process & Delivery Lifecycle | SkilledHyre Labs",
+    description:
+      "Our battle-tested 5-stage delivery framework engineered for speed, security, and scalable software execution.",
+    url: "/process",
+  },
+};
+
 export default function Process() {
   return (
     <div

@@ -16,7 +16,7 @@ export async function generateMetadata({ params }) {
     const blog = await Blog.findById(id).lean();
     if (!blog) return {};
 
-    const title = `${blog.title} | SkilledHyre Labs`;
+    const title = blog.title;
     const description =
       blog.shortDescription ||
       blog.heading ||

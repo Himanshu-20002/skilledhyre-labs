@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 
 // Sleek Matrix Cyber Digits & Hex Symbols
-const MATRIX_CHARS = "456789ABCDEF0123456789XYZ";
+const MATRIX_CHARS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
 export default function MatrixTextRotator({
   words = ["Intelligence.", "Architectures.", "Cloud Systems.", "AI Platforms.", "Automations."],

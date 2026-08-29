@@ -363,4 +363,26 @@
   .brandsMarqueeTitle {
     text-align: center;
   }
+
+  .reviewCardInspiration {
+    width: 285px;
+    padding: 18px;
+  }
+
+  .reviewsMarqueeContent {
+    padding: 10px 0;
+    mask-image: linear-gradient(to right, transparent, #000 3%, #000 97%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 3%, #000 97%, transparent);
+  }
+
+  .brandsMarqueeContent {
+    padding: 3px 0;
+  }
+
+  .brandPill {
+    padding: 10px 18px;
+    height: 44px;
+    font-size: 13px;
+    min-width: 110px;
+  }
 }

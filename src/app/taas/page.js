@@ -1,3 +1,18 @@
+export const metadata = {
+  title: "Team as a Service (TaaS) | Dedicated Engineering Pods",
+  description:
+    "Scale product velocity with SkilledHyre Labs' Team as a Service (TaaS). Deploy elite senior software engineers, AI developers, and DevOps architects.",
+  alternates: {
+    canonical: "/taas",
+  },
+  openGraph: {
+    title: "Team as a Service (TaaS) | Dedicated Engineering Pods",
+    description:
+      "Scale product velocity with SkilledHyre Labs' Team as a Service (TaaS). Deploy elite senior software engineers, AI developers, and DevOps architects.",
+    url: "/taas",
+  },
+};
+
 export default function TaaS() {
   return (
     <div

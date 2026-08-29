@@ -372,7 +372,7 @@ export function ServicesScroll({
   capabilitiesTitle = (
     <>
       Technology built<br />
-      <em>around your business.</em>
+      <em>around your <br />business.</em>
     </>
   ),
   capabilitiesNote = 'From AI engineering and digital products to enterprise systems and technical teams, we help businesses design, build, and scale technology that delivers.',
@@ -381,7 +381,7 @@ export function ServicesScroll({
   enterpriseKicker = 'Enterprise systems',
   enterpriseTitle = (
     <>
-      Enterprise technology, <em>connected.</em>
+      Enterprise technology,<br /> <em>connected.</em>
     </>
   ),
   enterpriseDescription = 'Modernize critical business operations with scalable ERP platforms and intelligent SAP solutions.',

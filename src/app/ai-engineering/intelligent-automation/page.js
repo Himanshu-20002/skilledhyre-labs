@@ -9,9 +9,18 @@ import Industries from "../../../components/intelligent-automation/Industries";
 import CTA from "../../../components/intelligent-automation/CTA";
 
 export const metadata = {
-  title: "Intelligent Automation | SkilledHyre Labs",
+  title: "Intelligent Automation & AI Agents",
   description:
-    "Automate processes and augment intelligence with our data-driven, self-optimizing systems. Explore Intelligent Automation at SkilledHyre Labs.",
+    "Autonomous AI agents, robotic process automation (RPA), and self-optimizing workflow engines designed for high-efficiency enterprise operations by SkilledHyre Labs.",
+  alternates: {
+    canonical: "/ai-engineering/intelligent-automation",
+  },
+  openGraph: {
+    title: "Intelligent Automation & AI Agents | SkilledHyre Labs",
+    description:
+      "Autonomous AI agents, RPA, and self-optimizing workflow engines designed for high-efficiency enterprise operations.",
+    url: "/ai-engineering/intelligent-automation",
+  },
 };
 
 export default function IntelligentAutomationPage() {

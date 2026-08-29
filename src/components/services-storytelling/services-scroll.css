@@ -9,9 +9,10 @@
 
 .services-section {
   font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  padding-top: 12rem;
-  padding-left: clamp(1.25rem, 5vw, 5rem);
-  padding-right: clamp(1.25rem, 5vw, 5rem);
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .services-section em {
@@ -1121,65 +1122,85 @@
   transition-delay: 320ms;
 }
 
-/* Mobile Responsive */
-@media (max-width: 700px) {
+/* Mobile Responsive - Cross-Device Uniformity (Motorola, OnePlus, iPhone, etc.) */
+@media (max-width: 768px) {
   .services-section {
-    padding-bottom: 7rem;
-    padding-top: 7rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    padding-left: 0;
+    padding-right: 0;
   }
 
   .services-intro,
   .enterprise-heading {
     align-items: flex-start;
-    display: block;
-    margin-bottom: 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2.5rem;
   }
 
   .services-intro h2 {
-    margin: 1.5rem 0 2rem;
+    font-size: clamp(2.2rem, 7vw, 3.2rem);
+    margin: 0.75rem 0 1rem;
+    line-height: 1.05;
   }
 
   .services-note {
-    max-width: 330px;
+    max-width: 100%;
+    font-size: 0.88rem;
+    line-height: 1.5;
   }
 
   .capabilities-grid,
   .enterprise-grid {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
   }
 
   .capability-card,
   .capability-featured,
   .enterprise-grid .capability-card {
-    margin-bottom: 1rem;
-    min-height: 270px;
+    margin-bottom: 0;
+    min-height: 250px;
+    padding: 1.15rem;
+    border-radius: 18px;
   }
 
   .capability-featured {
-    min-height: 430px;
+    min-height: 360px;
   }
 
   .capability-stack {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
   }
 
   .capability-stack .capability-card {
-    margin-bottom: 1rem;
-    min-height: 270px;
+    margin-bottom: 0;
+    min-height: 250px;
   }
 
   .capability-featured .capability-copy h3 {
-    font-size: 2.4rem;
+    font-size: 1.85rem;
+  }
+
+  .capability-copy h3 {
+    font-size: 1.5rem;
   }
 
   .enterprise-heading {
     border-top: 1px solid rgba(168, 85, 247, 0.22);
-    margin-top: 6rem;
-    padding-top: 3rem;
+    margin-top: 3.5rem;
+    padding-top: 2rem;
   }
 
   .enterprise-heading h2 {
-    margin-bottom: 1.5rem;
+    font-size: clamp(2rem, 6.5vw, 2.8rem);
+    margin-bottom: 0.5rem;
+    line-height: 1.05;
   }
 
   .enterprise-heading em {
@@ -1187,11 +1208,13 @@
   }
 
   .enterprise-heading>p {
-    max-width: 330px;
+    max-width: 100%;
+    font-size: 0.88rem;
   }
 
   .capability-index {
-    gap: .7rem 1rem;
-    margin-top: 4rem;
+    gap: .6rem .9rem;
+    margin-top: 2.5rem;
+    padding-top: 1rem;
   }
 }

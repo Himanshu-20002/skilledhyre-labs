@@ -19,34 +19,107 @@ const About = () => {
     }
   }, []);
 
-  // 2. Control playback via GSAP ScrollTrigger
+  // 2. Control playback via GSAP ScrollTrigger optimized for 120 FPS
   useGSAP(
     () => {
-      const clipAnimation = gsap.timeline({
-        scrollTrigger: {
-          trigger: '#clip',
-          start: 'top 9%',
-          end: '+=800',
-          scrub: true,
-          pin: true,
-          pinSpacing: true,
-          anticipatePin: 1,
-          fastScrollEnd: true,
-          preventOverlaps: true,
-          invalidateOnRefresh: true,
-          onEnter: () => {
-            videoRef.current?.play().catch(() => { });
-          },
-          onEnterBack: () => {
-            videoRef.current?.play().catch(() => { });
-          },
-          onLeaveBack: () => {
-            videoRef.current?.pause();
-          },
-        },
+      // Global ScrollTrigger optimization
+      ScrollTrigger.config({
+        limitCallbacks: true,
+        syncInterval: 40,
       });
 
-      // Target Services section DOM element directly (bypassing scoped container lookup)
+      const mm = gsap.matchMedia();
+
+      // Desktop: Ultra-smooth 120 FPS GPU composite animation
+      mm.add("(min-width: 769px)", () => {
+        const clipAnimation = gsap.timeline({
+          scrollTrigger: {
+            trigger: '#clip',
+            start: 'top 10%',
+            end: '+=800',
+            scrub: 0.6, // Smooth 120 FPS lerp interpolation (eliminates raw scroll wheel/touch jitter)
+            pin: true,
+            pinSpacing: true,
+            anticipatePin: 1,
+            fastScrollEnd: true,
+            preventOverlaps: true,
+            invalidateOnRefresh: true,
+            onEnter: () => {
+              videoRef.current?.play().catch(() => { });
+            },
+            onEnterBack: () => {
+              videoRef.current?.play().catch(() => { });
+            },
+            onLeaveBack: () => {
+              videoRef.current?.pause();
+            },
+          },
+        });
+
+        // Pure GPU Transform (Scale 0.7 -> 1.0 with 3D matrix compositing)
+        clipAnimation.fromTo(
+          '.about-image',
+          {
+            scale: 0.7,
+            borderRadius: '2rem',
+            transformOrigin: 'top center',
+            force3D: true,
+          },
+          {
+            scale: 1,
+            borderRadius: '0rem',
+            ease: 'none',
+            force3D: true,
+            overwrite: 'auto',
+          }
+        );
+      });
+
+      // Mobile: Optimized aesthetic height, scaling, and 120 FPS smooth scrub
+      mm.add("(max-width: 768px)", () => {
+        const clipAnimation = gsap.timeline({
+          scrollTrigger: {
+            trigger: '#clip',
+            start: 'top 29%',
+            end: '+=450',
+            scrub: 0.6, // Smooth 120 FPS lerp on touch scroll
+            pin: true,
+            pinSpacing: true,
+            anticipatePin: 1,
+            fastScrollEnd: true,
+            preventOverlaps: true,
+            invalidateOnRefresh: true,
+            onEnter: () => {
+              videoRef.current?.play().catch(() => { });
+            },
+            onEnterBack: () => {
+              videoRef.current?.play().catch(() => { });
+            },
+            onLeaveBack: () => {
+              videoRef.current?.pause();
+            },
+          },
+        });
+
+        clipAnimation.fromTo(
+          '.about-image',
+          {
+            scale: 0.88,
+            borderRadius: '1.25rem',
+            transformOrigin: 'center center',
+            force3D: true,
+          },
+          {
+            scale: 1,
+            borderRadius: '0.35rem',
+            ease: 'none',
+            force3D: true,
+            overwrite: 'auto',
+          }
+        );
+      });
+
+      // Target Services section DOM element directly
       const servicesEl = document.getElementById('services') || document.querySelector('.services-section');
 
       if (servicesEl) {
@@ -54,31 +127,13 @@ const About = () => {
           trigger: servicesEl,
           start: 'top 10%',
           onEnter: () => {
-            console.log('[Video Status] Paused - Services section entered viewport');
             videoRef.current?.pause();
           },
           onLeaveBack: () => {
-            console.log('[Video Status] Resumed Playing - Scrolled back above Services section');
             videoRef.current?.play().catch(() => { });
           },
         });
       }
-
-      // 100% GPU-accelerated scale & border radius animation (Zero layout reflow = 60-120 FPS!)
-      clipAnimation.fromTo(
-        '.about-image',
-        {
-          scale: 0.7,
-          borderRadius: '2rem',
-        },
-        {
-          scale: 1,
-          borderRadius: '0rem',
-          ease: 'power1.inOut',
-          force3D: true,
-          overwrite: 'auto',
-        }
-      );
     },
     { scope: containerRef }
   );

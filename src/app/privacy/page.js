@@ -1,8 +1,12 @@
 import Section from "../../components/common/Section";
 
 export const metadata = {
-  title: "Privacy Policy | SkilledHyre Labs",
-  description: "Privacy Policy for SkilledHyre Labs.",
+  title: "Privacy Policy",
+  description:
+    "Privacy policy and data governance standards of SkilledHyre Labs. Learn how we manage enterprise data, client confidentiality, and security.",
+  alternates: {
+    canonical: "/privacy",
+  },
 };
 
 export default function PrivacyPage() {

@@ -73,8 +73,8 @@ const secondaryIndustries = [
 
 export default function IndustriesSection() {
   return (
-    <Section className="relative bg-transparent pb-30">
-      <div className="max-w-[1240px] mx-auto px-6">
+    <Section className="relative bg-transparent pb-12 sm:pb-20">
+      <div className="max-w-[1240px] mx-auto px-4 sm:px-6">
         <div className="text-center mb-10">
           <span className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full text-[0.68rem] font-semibold tracking-wider text-[#818cf8] bg-[#6366f1]/10 border border-[#6366f1]/25 mb-3">
             <span className="w-1.5 h-1.5 rounded-full bg-[#38bdf8] animate-ping" />

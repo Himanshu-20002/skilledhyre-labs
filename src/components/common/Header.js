@@ -158,8 +158,10 @@ export default function Header() {
 
   return (
     <header
-      className={"fixed w-full top-0 z-50 transition-all duration-300 py-5 bg-transparent border-b border-transparent"
-      }
+      className={`fixed w-full top-0 z-50 transition-all duration-300 ${scrolled
+        ? " bg-[#07040d]/9 backdrop-blur-xl border-b border-white/10 shadow-lg shadow-black/50"
+        : "py-4 sm:p-3  bg-gradient-to-b from-[#07040d]/80 via-[#07040d]/40 to-transparent  border-transparent"
+        }`}
     >
       <nav
         className="container mx-auto px-4 sm:px-6 flex items-center justify-between max-w-[1240px]"
@@ -167,11 +169,14 @@ export default function Header() {
       >
         {/* Brand / Logo */}
         <div className="flex lg:flex-1">
-          <Link href="/" className="-m-1.5 p-1.5 flex items-center group">
-            <img
+          <Link href="/" className="flex items-center group">
+            <Image
               src="/logo_new (2).png"
               alt="SkilledHyre Labs Logo"
-              className="h-14 sm:h-20 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+              width={200}
+              height={60}
+              priority
+              className="h-15 sm:h-20 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
             />
           </Link>
         </div>
