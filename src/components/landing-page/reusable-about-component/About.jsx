@@ -145,7 +145,7 @@ const About = () => {
         <div className="about-image">
           <video
             ref={videoRef}
-            src="/video/sSmooth%20Camera%20Movement%20in%20After%20Effects%20(Tutorial)%20-%20Bricks%20(1080p,%20h264)_1.mp4"
+            src="/video/quality_broll.mp4"
             loop
             muted
             playsInline
