@@ -93,6 +93,14 @@ const organizationSchema = {
     "https://twitter.com/skilledhyre",
     "https://github.com/skilledhyre",
   ],
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Office no - 606, Tower A, I-thum, Sector 62",
+    addressLocality: "Noida",
+    addressRegion: "Uttar Pradesh",
+    postalCode: "201309",
+    addressCountry: "IN",
+  },
   contactPoint: {
     "@type": "ContactPoint",
     contactType: "Customer Support & Sales",

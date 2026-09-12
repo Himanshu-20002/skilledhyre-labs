@@ -228,6 +228,15 @@ export default function Footer() {
               Engineering Digital Innovation with AI & Technology to help startups and enterprise organizations build, modernize, and scale.
             </p>
 
+            {/* Office Address */}
+            <div className="flex items-start gap-2 text-xs text-gray-400 max-w-sm">
+              <svg className="w-4 h-4 text-indigo-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              <span>Office no - 606 Tower A, I-thum Noida sector 62, 201309</span>
+            </div>
+
             {/* Live Operational System Status Badge */}
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#6366f1]/15 border border-[#6366f1]/35 text-[0.7rem] font-medium text-[#818cf8]">
               <span className="relative flex h-1.5 w-1.5">
@@ -342,12 +351,9 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Bottom copyright & locations bar */}
+        {/* Bottom copyright bar */}
         <div className="pt-6 flex flex-col md:flex-row items-center justify-between gap-3 text-[0.7rem] text-gray-500">
           <p>&copy; {new Date().getFullYear()} SkilledHyre Labs. All rights reserved.</p>
-          <div className="flex items-center gap-4">
-            <span>London • New York • Remote</span>
-          </div>
         </div>
 
         {/* Compact Watermark Typography with Minimal Left-to-Right Light Shimmer */}

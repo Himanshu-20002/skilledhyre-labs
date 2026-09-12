@@ -34,3 +34,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# internal reports
+TODAY_MIDDAY_REPORT.md
+MIDDAY_WORK_REPORT.md

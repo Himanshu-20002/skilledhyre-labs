@@ -52,6 +52,7 @@ export type ServicesScrollProps = {
     className?: string
     children: React.ReactNode
     onClick?: (e: React.MouseEvent) => void
+    style?: React.CSSProperties
   }>
   /** Custom visual renderer if users want to supply custom graphics */
   renderVisual?: (type: ServiceVisualType) => React.ReactNode
@@ -78,7 +79,7 @@ const defaultCoreServices: ServiceItem[] = [
     title: 'Custom Software Development',
     shortTitle: 'Custom Software',
     description: 'Tailor-made software built for performance, scalability, and long-term success.',
-    href: '/services',
+    href: '/services/custom-software',
     cta: 'Explore',
     visual: 'code',
   },
@@ -88,7 +89,7 @@ const defaultCoreServices: ServiceItem[] = [
     title: 'Web & App Development',
     shortTitle: 'Web & App',
     description: 'Modern, fast, and secure web & mobile applications using cutting-edge frameworks.',
-    href: '/services',
+    href: '/services/website-development',
     cta: 'Explore',
     visual: 'devices',
   },
@@ -98,7 +99,7 @@ const defaultCoreServices: ServiceItem[] = [
     title: 'Product Engineering & MVPs',
     shortTitle: 'Product Engineering',
     description: 'From idea to MVP to enterprise-grade product.',
-    href: '/services',
+    href: '/services/product-engineering',
     cta: 'Explore',
     visual: 'lifecycle',
   },
@@ -297,13 +298,15 @@ const DefaultLink = ({
   className,
   children,
   onClick,
+  style,
 }: {
   href: string
   className?: string
   children: React.ReactNode
   onClick?: (e: React.MouseEvent) => void
+  style?: React.CSSProperties
 }) => (
-  <Link href={href} className={className} onClick={onClick}>
+  <Link href={href} className={className} onClick={onClick} style={style}>
     {children}
   </Link>
 )
@@ -325,6 +328,7 @@ const ServiceCard = memo(function ServiceCard({
     className?: string
     children: React.ReactNode
     onClick?: (e: React.MouseEvent) => void
+    style?: React.CSSProperties
   }>
   onServiceClick?: (service: ServiceItem, event: React.MouseEvent) => void
 }) {
@@ -335,7 +339,9 @@ const ServiceCard = memo(function ServiceCard({
   }
 
   return (
-    <article
+    <LinkComp
+      href={service.href}
+      onClick={handleClick}
       className={`capability-card ${featured ? 'capability-featured' : ''} reveal-card`}
       style={{ '--reveal-delay': `${index * 70}ms` } as React.CSSProperties}
     >
@@ -343,17 +349,17 @@ const ServiceCard = memo(function ServiceCard({
         <span className="service-label">{service.label}</span>
         <span className="service-number">{service.number}</span>
       </div>
-      <div className="capability-visual">
+      <div className="capability-visual" aria-hidden="true">
         {renderVisual ? renderVisual(service.visual) : <DefaultVisual type={service.visual} />}
       </div>
       <div className="capability-copy">
         <h3>{service.title}</h3>
         <p>{service.description}</p>
-        <LinkComp href={service.href} onClick={handleClick}>
+        <span className="capability-cta">
           {service.cta} <span aria-hidden="true">→</span>
-        </LinkComp>
+        </span>
       </div>
-    </article>
+    </LinkComp>
   )
 })
 

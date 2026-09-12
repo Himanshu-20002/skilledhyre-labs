@@ -276,11 +276,11 @@ export default function Header() {
               <Link href="/" className="flex items-center gap-3">
                 <div className="flex items-center justify-center rounded-xl bg-cyan-500/20 p-1 border border-cyan-500/30">
                   <Image
-                    src="/logo_new.png"
-                    alt="SkilledHyre Labs Logo"
+                    src="/logo_emblem.png"
+                    alt="SkilledHyre Labs Emblem"
                     width={32}
                     height={32}
-                    className="rounded-md"
+                    className="rounded-md object-contain"
                   />
                 </div>
                 <span className="text-base font-bold text-white">
