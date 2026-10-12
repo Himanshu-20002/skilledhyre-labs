@@ -159,7 +159,7 @@ export default function Footer() {
               {/* Brand Logo */}
               <Link href="/" className="inline-flex items-center group">
                 <Image
-                  src="/logo_new (2).png"
+                  src="/logo_neww.png"
                   alt="SkilledHyre Labs Logo"
                   width={200}
                   height={60}
@@ -218,9 +218,11 @@ export default function Footer() {
           {/* Brand Info & Live System Status */}
           <div className="lg:col-span-4 space-y-4">
             <Link href="/" className="inline-flex items-center group">
-              <img
-                src="/logo_new (2).png"
+              <Image
+                src="/logo_neww.png"
                 alt="SkilledHyre Labs Logo"
+                width={200}
+                height={60}
                 className="h-20 sm:h-28 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
               />
             </Link>
