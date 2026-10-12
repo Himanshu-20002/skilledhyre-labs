@@ -21,7 +21,7 @@ export async function generateMetadata({ params }) {
       news.shortDescription ||
       news.heading ||
       "Company updates, press releases, and industry announcements from SkilledHyre Labs.";
-    const imageUrl = news.cardImage || `${siteUrl}/logo_clean.png`;
+    const imageUrl = news.cardImage || `${siteUrl}/logo_neww.png`;
 
     return {
       title,
@@ -81,7 +81,7 @@ export default async function NewsDetailPage({ params }) {
     "@type": "NewsArticle",
     headline: news.title,
     description: news.shortDescription || news.heading || news.title,
-    image: news.cardImage || `${siteUrl}/logo_clean.png`,
+    image: news.cardImage || `${siteUrl}/logo_neww.png`,
     datePublished: news.createdAt,
     dateModified: news.updatedAt || news.createdAt,
     author: {
@@ -94,7 +94,7 @@ export default async function NewsDetailPage({ params }) {
       name: "SkilledHyre Labs",
       logo: {
         "@type": "ImageObject",
-        url: `${siteUrl}/logo_clean.png`,
+        url: `${siteUrl}/logo_neww.png`,
       },
     },
     mainEntityOfPage: {

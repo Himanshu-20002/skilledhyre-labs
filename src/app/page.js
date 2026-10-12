@@ -14,7 +14,7 @@ export const metadata = {
     url: "https://skilledhyrelabs.com",
     images: [
       {
-        url: "https://skilledhyrelabs.com/logo_clean.png",
+        url: "https://skilledhyrelabs.com/logo_neww.png",
         width: 1200,
         height: 630,
         alt: "SkilledHyre Labs — AI & Software Engineering",
@@ -26,7 +26,7 @@ export const metadata = {
     title: "SkilledHyre Labs | AI & Software Engineering",
     description:
       "SkilledHyre Labs builds high-performance AI systems, scalable software products, SaaS platforms, and intelligent digital architectures for modern enterprises.",
-    images: ["https://skilledhyrelabs.com/logo_clean.png"],
+    images: ["https://skilledhyrelabs.com/logo_neww.png"],
   },
 };
 

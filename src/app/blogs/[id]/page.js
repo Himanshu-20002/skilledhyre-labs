@@ -21,7 +21,7 @@ export async function generateMetadata({ params }) {
       blog.shortDescription ||
       blog.heading ||
       "Explore engineering insights, digital architectures, and AI technology trends from SkilledHyre Labs.";
-    const imageUrl = blog.cardImage || `${siteUrl}/logo_clean.png`;
+    const imageUrl = blog.cardImage || `${siteUrl}/logo_neww.png`;
 
     return {
       title,
@@ -81,7 +81,7 @@ export default async function BlogDetailPage({ params }) {
     "@type": "Article",
     headline: blog.title,
     description: blog.shortDescription || blog.heading || blog.title,
-    image: blog.cardImage || `${siteUrl}/logo_clean.png`,
+    image: blog.cardImage || `${siteUrl}/logo_neww.png`,
     datePublished: blog.createdAt,
     dateModified: blog.updatedAt || blog.createdAt,
     author: {
@@ -94,7 +94,7 @@ export default async function BlogDetailPage({ params }) {
       name: "SkilledHyre Labs",
       logo: {
         "@type": "ImageObject",
-        url: `${siteUrl}/logo_clean.png`,
+        url: `${siteUrl}/logo_neww.png`,
       },
     },
     mainEntityOfPage: {

@@ -40,7 +40,7 @@ export const metadata = {
       "SkilledHyre Labs builds high-performance AI systems, scalable software products, SaaS platforms, and intelligent digital architectures for modern enterprises.",
     images: [
       {
-        url: `${siteUrl}/logo_clean.png`,
+        url: `${siteUrl}/logo_neww.png`,
         width: 1200,
         height: 630,
         alt: "SkilledHyre Labs — AI & Software Engineering",
@@ -52,7 +52,7 @@ export const metadata = {
     title: "SkilledHyre Labs | AI & Software Engineering",
     description:
       "SkilledHyre Labs builds high-performance AI systems, scalable software products, SaaS platforms, and intelligent digital architectures for modern enterprises.",
-    images: [`${siteUrl}/logo_clean.png`],
+    images: [`${siteUrl}/logo_neww.png`],
     creator: "@SkilledHyreLabs",
   },
   robots: {
@@ -67,8 +67,14 @@ export const metadata = {
     },
   },
   icons: {
-    icon: "/favicon.ico",
-    apple: "/favicon.ico",
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.png", type: "image/png", sizes: "512x512" },
+    ],
+    apple: [
+      { url: "/apple-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+    shortcut: "/favicon.ico",
   },
   verification: {
     google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || "google-site-verification-token",
@@ -85,7 +91,7 @@ const organizationSchema = {
   "@type": "Organization",
   name: "SkilledHyre Labs",
   url: siteUrl,
-  logo: `${siteUrl}/logo_clean.png`,
+  logo: `${siteUrl}/logo_neww.png`,
   description:
     "Full-lifecycle AI and software engineering laboratory delivering scalable cloud platforms, intelligent automated systems, and enterprise tech solutions.",
   sameAs: [
