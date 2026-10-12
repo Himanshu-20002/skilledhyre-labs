@@ -5,8 +5,8 @@ const MATRIX_CHARS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345
 
 export default function MatrixTextRotator({
   words = ["Intelligence.", "Architectures.", "Cloud Systems.", "AI Platforms.", "Automations."],
-  interval = 2600,
-  scrambleSpeed = 35,
+  interval = 5900,
+  scrambleSpeed = 25,
   className = "",
 }) {
   const [wordIndex, setWordIndex] = useState(0);

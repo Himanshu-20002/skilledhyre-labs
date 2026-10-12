@@ -112,7 +112,7 @@ export default function HeroSection() {
                   "AI Platforms.",
                   "Automations.",
                 ]}
-                interval={2600}
+                interval={5900}
                 className="text-transparent bg-clip-text bg-gradient-to-r from-purple-300 via-indigo-200 to-purple-400 font-sans whitespace-nowrap"
               />
             </span>

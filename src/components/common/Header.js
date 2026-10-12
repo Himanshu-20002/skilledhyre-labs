@@ -171,10 +171,10 @@ export default function Header() {
         <div className="flex lg:flex-1">
           <Link href="/" className="flex items-center group">
             <Image
-              src="/logo_new (2).png"
+              src="/logo_neww.png"
               alt="SkilledHyre Labs Logo"
-              width={200}
-              height={60}
+              width={150}
+              height={40}
               priority
               className="h-15 sm:h-20 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
             />
