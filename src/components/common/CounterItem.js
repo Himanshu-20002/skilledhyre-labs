@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import { motion, useInView, useSpring } from "framer-motion";
+import { useInView, useSpring } from "framer-motion";
 
 export default function CounterItem({ value, label, suffix = "" }) {
   const ref = useRef(null);
@@ -18,9 +18,10 @@ export default function CounterItem({ value, label, suffix = "" }) {
   }, [isInView, value, springValue]);
 
   useEffect(() => {
-    springValue.on("change", (latest) => {
+    const unsubscribe = springValue.on("change", (latest) => {
       setDisplayValue(Math.floor(latest));
     });
+    return () => unsubscribe();
   }, [springValue]);
 
   return (

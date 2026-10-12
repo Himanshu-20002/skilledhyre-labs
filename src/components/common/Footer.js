@@ -1,39 +1,54 @@
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import SkilledHyreLogo from "@/components/common/SkilledHyreLogo";
 
 function AnimatedSaaSTiles() {
   const totalTiles = 24;
-  const [activeStates, setActiveStates] = useState({});
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      const updated = { ...activeStates };
-      for (let i = 0; i < 4; i++) {
-        const randIdx = Math.floor(Math.random() * totalTiles);
-        const glowStyles = [
-          "bg-white/[0.03] border-white/[0.06]",
-          "bg-[#38bdf8]/20 border-[#38bdf8]/45 shadow-[0_0_15px_rgba(56,189,248,0.35)] scale-105",
-          "bg-[#6366f1]/25 border-[#6366f1]/55 shadow-[0_0_18px_rgba(99,102,241,0.4)] scale-105",
-          "bg-[#a855f7]/20 border-[#a855f7]/45 shadow-[0_0_15px_rgba(168,85,247,0.35)] scale-105",
-        ];
-        updated[randIdx] = glowStyles[Math.floor(Math.random() * glowStyles.length)];
-      }
-      setActiveStates(updated);
-    }, 400);
-
-    return () => clearInterval(timer);
-  }, []);
 
   return (
     <div className="grid grid-cols-4 gap-3 w-64 sm:w-80">
+      <style>{`
+        @keyframes tilePulse {
+          0%, 100% { opacity: 0.35; transform: scale(1); border-color: rgba(255,255,255,0.06); }
+          50% { opacity: 1; transform: scale(1.05); }
+        }
+        .tile-glow-cyan {
+          animation: tilePulse 4.2s ease-in-out infinite;
+          background: rgba(56, 189, 248, 0.16);
+          border-color: rgba(56, 189, 248, 0.45);
+          box-shadow: 0 0 15px rgba(56, 189, 248, 0.3);
+        }
+        .tile-glow-indigo {
+          animation: tilePulse 5.1s ease-in-out infinite;
+          background: rgba(99, 102, 241, 0.2);
+          border-color: rgba(99, 102, 241, 0.5);
+          box-shadow: 0 0 18px rgba(99, 102, 241, 0.35);
+        }
+        .tile-glow-purple {
+          animation: tilePulse 4.7s ease-in-out infinite;
+          background: rgba(168, 85, 247, 0.18);
+          border-color: rgba(168, 85, 247, 0.45);
+          box-shadow: 0 0 15px rgba(168, 85, 247, 0.3);
+        }
+        .tile-glow-subtle {
+          background: rgba(255, 255, 255, 0.03);
+          border-color: rgba(255, 255, 255, 0.06);
+        }
+      `}</style>
       {Array.from({ length: totalTiles }).map((_, i) => {
-        const activeStyle = activeStates[i] || "bg-white/[0.03] border-white/[0.06]";
+        const glowClass =
+          i % 5 === 1
+            ? "tile-glow-cyan"
+            : i % 5 === 2
+            ? "tile-glow-indigo"
+            : i % 5 === 4
+            ? "tile-glow-purple"
+            : "tile-glow-subtle";
+        const delay = `${((i * 37) % 29) / 10}s`;
         return (
           <div
             key={i}
-            className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl border transition-all duration-700 ease-in-out ${activeStyle}`}
+            style={{ animationDelay: delay }}
+            className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl border transition-all duration-700 ease-in-out ${glowClass}`}
           />
         );
       })}
@@ -217,15 +232,6 @@ export default function Footer() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 pb-10 border-b border-white/15">
           {/* Brand Info & Live System Status */}
           <div className="lg:col-span-4 space-y-4">
-            <Link href="/" className="inline-flex items-center group">
-              <Image
-                src="/logo_neww.png"
-                alt="SkilledHyre Labs Logo"
-                width={200}
-                height={60}
-                className="h-20 sm:h-28 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
-              />
-            </Link>
             <p className="text-xs text-gray-300 leading-relaxed max-w-sm">
               Engineering Digital Innovation with AI & Technology to help startups and enterprise organizations build, modernize, and scale.
             </p>

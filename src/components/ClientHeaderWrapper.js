@@ -8,18 +8,15 @@ export default function ClientHeaderWrapper({ children }) {
   const pathname = usePathname();
   const isAdminPage = pathname.startsWith("/admin");
 
-  // Only render header/footer if NOT admin
-  // if (isAdminPage) return null;
+  if (isAdminPage) {
+    return <>{children}</>;
+  }
 
   return (
     <>
-      {!isAdminPage && <Header />}
-      {!isAdminPage ? (
-        <main className="flex-grow">{children}</main>
-      ) : (
-        children
-      )}
-      {!isAdminPage && <Footer />}
+      <Header />
+      <main className="flex-grow">{children}</main>
+      <Footer />
     </>
   );
 }

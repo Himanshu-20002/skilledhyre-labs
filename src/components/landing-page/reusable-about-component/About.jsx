@@ -149,7 +149,7 @@ const About = () => {
             loop
             muted
             playsInline
-            preload="auto"
+            preload="metadata"
             className="about-img-bg"
           />
         </div>

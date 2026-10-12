@@ -9,7 +9,6 @@ import {
   ArrowRightIcon,
 } from "@heroicons/react/24/outline";
 import Image from "next/image";
-import SkilledHyreLogo from "@/components/common/SkilledHyreLogo";
 
 const navigation = [
   { name: "Home", href: "/" },
@@ -143,7 +142,7 @@ export default function Header() {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
     };
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 

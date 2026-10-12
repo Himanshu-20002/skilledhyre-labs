@@ -28,23 +28,25 @@ export default function HomePageClient() {
   const [news, setNews] = useState([]);
 
   useEffect(() => {
-    // Fetch Blogs
-    fetch("/api/blogs")
-      .then((res) => {
-        if (res.ok) return res.json();
-        return [];
-      })
-      .then((data) => setBlogs(data))
-      .catch((err) => console.error("Error fetching blogs:", err));
+    let isMounted = true;
 
-    // Fetch News
-    fetch("/api/news")
-      .then((res) => {
-        if (res.ok) return res.json();
-        return [];
+    // Concurrently fetch blogs & news in parallel to eliminate waterfall delay
+    Promise.all([
+      fetch("/api/blogs").then((res) => (res.ok ? res.json() : [])),
+      fetch("/api/news").then((res) => (res.ok ? res.json() : [])),
+    ])
+      .then(([blogsData, newsData]) => {
+        if (!isMounted) return;
+        setBlogs(blogsData);
+        setNews(newsData);
       })
-      .then((data) => setNews(data))
-      .catch((err) => console.error("Error fetching news:", err));
+      .catch((err) => {
+        if (isMounted) console.error("Error loading home insights:", err);
+      });
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   return (

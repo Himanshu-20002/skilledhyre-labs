@@ -129,12 +129,6 @@ const websiteSchema = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <head>
-        <meta
-          name="description"
-          content="SkilledHyre Labs builds high-performance AI systems, scalable software products, SaaS platforms, and intelligent digital architectures for modern enterprises."
-        />
-      </head>
       <body
         className="antialiased min-h-screen flex flex-col font-sans"
         suppressHydrationWarning={true}

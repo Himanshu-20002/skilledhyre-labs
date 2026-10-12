@@ -3,12 +3,24 @@ import Blog from "../../../models/Blog";
 
 export default async function handler(req, res) {
   await connectToDatabase();
-  console.log("Connected to MongoDB");
-  // console.log("req ", req, " res ", res);
 
   if (req.method === "GET") {
     try {
-      const blogs = await Blog.find({}).sort({ createdAt: -1 });
+      // Exclude heavy content and sections from list view; return lean plain objects
+      const blogs = await Blog.find(
+        {},
+        {
+          title: 1,
+          name: 1,
+          heading: 1,
+          shortDescription: 1,
+          cardImage: 1,
+          createdAt: 1,
+          updatedAt: 1,
+        }
+      )
+        .sort({ createdAt: -1 })
+        .lean();
 
       return res.status(200).json(blogs);
     } catch (error) {

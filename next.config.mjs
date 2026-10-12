@@ -6,8 +6,9 @@ const nextConfig = {
   // Enable compression for Core Web Vitals & PageSpeed optimization
   compress: true,
 
-  // Remote image optimization domains
+  // Remote image optimization domains and modern formats
   images: {
+    formats: ["image/avif", "image/webp"],
     remotePatterns: [
       {
         protocol: "https",
@@ -21,6 +22,17 @@ const nextConfig = {
         protocol: "https",
         hostname: "skilledhyrelabs.com",
       },
+    ],
+  },
+
+  // AST-level tree-shaking for icons and utility libraries
+  experimental: {
+    optimizePackageImports: [
+      "lucide-react",
+      "@heroicons/react/24/outline",
+      "@heroicons/react/20/solid",
+      "date-fns",
+      "framer-motion",
     ],
   },
 
