@@ -13,35 +13,51 @@ gsap.registerPlugin(ScrollTrigger);
 const About = () => {
   const containerRef = useRef(null);
   const videoRef = useRef(null);
-  const [volume, setVolume] = useState(0.2);
+  const [volume, setVolume] = useState(0.1);
   const [isMuted, setIsMuted] = useState(false);
   const [showSlider, setShowSlider] = useState(false);
   const [showGetStarted, setShowGetStarted] = useState(false);
 
-  // Keep latest mutable state in refs so GSAP timelines are not recreated on every state update
+  // Keep latest mutable state in refs
   const isMutedRef = useRef(isMuted);
   const volumeRef = useRef(volume);
   isMutedRef.current = isMuted;
   volumeRef.current = volume;
 
-  // Optimized playback trigger that reads fresh ref values without causing hook re-execution
+  // Optimized playback trigger: ALWAYS tries unmuted with volume at 10%
   const playVideoSafely = useCallback(() => {
     const video = videoRef.current;
     if (!video) return;
 
-    if (!isMutedRef.current) {
-      video.volume = volumeRef.current;
-      video.muted = false;
-    }
+    video.volume = volumeRef.current;
+    video.muted = isMutedRef.current;
 
     const promise = video.play();
     if (promise !== undefined) {
-      promise.catch(() => {
-        // Modern browsers block audio without prior user gesture:
-        // gracefully fall back to muted so 60/120 FPS video scroll doesn't stall
-        video.muted = true;
-        setIsMuted(true);
-        video.play().catch(() => {});
+      promise.catch((err) => {
+        // If the browser blocks audio due to lack of prior user gesture,
+        // play muted temporarily and unlock audio on the very first user interaction
+        if (err.name === 'NotAllowedError') {
+          video.muted = true;
+          video.play().catch(() => {});
+
+          const unlockAudio = () => {
+            if (videoRef.current && !isMutedRef.current) {
+              videoRef.current.muted = false;
+              videoRef.current.volume = volumeRef.current;
+              setIsMuted(false);
+            }
+            window.removeEventListener('click', unlockAudio);
+            window.removeEventListener('scroll', unlockAudio);
+            window.removeEventListener('keydown', unlockAudio);
+            window.removeEventListener('touchstart', unlockAudio);
+          };
+
+          window.addEventListener('click', unlockAudio, { once: true });
+          window.addEventListener('scroll', unlockAudio, { once: true, passive: true });
+          window.addEventListener('keydown', unlockAudio, { once: true });
+          window.addEventListener('touchstart', unlockAudio, { once: true, passive: true });
+        }
       });
     }
   }, []);
@@ -56,10 +72,10 @@ const About = () => {
     setShowGetStarted((prev) => (prev !== shouldShow ? shouldShow : prev));
   }, []);
 
-  // Initial video setup: 20% volume
+  // Initial video setup: 10% volume, not muted
   useEffect(() => {
     if (videoRef.current) {
-      videoRef.current.volume = 0.2;
+      videoRef.current.volume = 0.1;
       videoRef.current.muted = false;
       videoRef.current.pause();
     }
@@ -84,7 +100,7 @@ const About = () => {
     if (!videoRef.current) return;
     if (isMuted) {
       videoRef.current.muted = false;
-      const targetVol = volume === 0 ? 0.2 : volume;
+      const targetVol = volume === 0 ? 0.1 : volume;
       videoRef.current.volume = targetVol;
       setVolume(targetVol);
       setIsMuted(false);
