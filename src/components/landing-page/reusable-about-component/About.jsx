@@ -1,9 +1,11 @@
 'use client';
 
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState, useCallback } from 'react';
+import Link from 'next/link';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
+import { Volume2, VolumeX, Volume1, ArrowRight } from 'lucide-react';
 import './about.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -11,13 +13,87 @@ gsap.registerPlugin(ScrollTrigger);
 const About = () => {
   const containerRef = useRef(null);
   const videoRef = useRef(null);
+  const [volume, setVolume] = useState(0.2);
+  const [isMuted, setIsMuted] = useState(false);
+  const [showSlider, setShowSlider] = useState(false);
+  const [showGetStarted, setShowGetStarted] = useState(false);
 
-  // 1. Pause video explicitly on initial page load
+  // Keep latest mutable state in refs so GSAP timelines are not recreated on every state update
+  const isMutedRef = useRef(isMuted);
+  const volumeRef = useRef(volume);
+  isMutedRef.current = isMuted;
+  volumeRef.current = volume;
+
+  // Optimized playback trigger that reads fresh ref values without causing hook re-execution
+  const playVideoSafely = useCallback(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (!isMutedRef.current) {
+      video.volume = volumeRef.current;
+      video.muted = false;
+    }
+
+    const promise = video.play();
+    if (promise !== undefined) {
+      promise.catch(() => {
+        // Modern browsers block audio without prior user gesture:
+        // gracefully fall back to muted so 60/120 FPS video scroll doesn't stall
+        video.muted = true;
+        setIsMuted(true);
+        video.play().catch(() => {});
+      });
+    }
+  }, []);
+
+  // Monitor playback time to reveal Get Started button at least 3s before the video ends
+  const handleTimeUpdate = useCallback(() => {
+    const video = videoRef.current;
+    if (!video || !video.duration) return;
+    const remainingTime = video.duration - video.currentTime;
+
+    const shouldShow = remainingTime <= 3 && remainingTime >= 0;
+    setShowGetStarted((prev) => (prev !== shouldShow ? shouldShow : prev));
+  }, []);
+
+  // Initial video setup: 20% volume
   useEffect(() => {
     if (videoRef.current) {
+      videoRef.current.volume = 0.2;
+      videoRef.current.muted = false;
       videoRef.current.pause();
     }
   }, []);
+
+  const handleVolumeChange = (e) => {
+    const newVol = parseFloat(e.target.value);
+    setVolume(newVol);
+    if (videoRef.current) {
+      videoRef.current.volume = newVol;
+      if (newVol === 0) {
+        setIsMuted(true);
+        videoRef.current.muted = true;
+      } else {
+        setIsMuted(false);
+        videoRef.current.muted = false;
+      }
+    }
+  };
+
+  const toggleMute = () => {
+    if (!videoRef.current) return;
+    if (isMuted) {
+      videoRef.current.muted = false;
+      const targetVol = volume === 0 ? 0.2 : volume;
+      videoRef.current.volume = targetVol;
+      setVolume(targetVol);
+      setIsMuted(false);
+      videoRef.current.play().catch(() => {});
+    } else {
+      videoRef.current.muted = true;
+      setIsMuted(true);
+    }
+  };
 
   // 2. Control playback via GSAP ScrollTrigger optimized for 120 FPS
   useGSAP(
@@ -37,7 +113,7 @@ const About = () => {
             trigger: '#clip',
             start: 'top 10%',
             end: '+=800',
-            scrub: 0.6, // Smooth 120 FPS lerp interpolation (eliminates raw scroll wheel/touch jitter)
+            scrub: 0.6,
             pin: true,
             pinSpacing: true,
             anticipatePin: 1,
@@ -45,10 +121,10 @@ const About = () => {
             preventOverlaps: true,
             invalidateOnRefresh: true,
             onEnter: () => {
-              videoRef.current?.play().catch(() => { });
+              playVideoSafely();
             },
             onEnterBack: () => {
-              videoRef.current?.play().catch(() => { });
+              playVideoSafely();
             },
             onLeaveBack: () => {
               videoRef.current?.pause();
@@ -82,7 +158,7 @@ const About = () => {
             trigger: '#clip',
             start: 'top 29%',
             end: '+=450',
-            scrub: 0.6, // Smooth 120 FPS lerp on touch scroll
+            scrub: 0.6,
             pin: true,
             pinSpacing: true,
             anticipatePin: 1,
@@ -90,10 +166,10 @@ const About = () => {
             preventOverlaps: true,
             invalidateOnRefresh: true,
             onEnter: () => {
-              videoRef.current?.play().catch(() => { });
+              playVideoSafely();
             },
             onEnterBack: () => {
-              videoRef.current?.play().catch(() => { });
+              playVideoSafely();
             },
             onLeaveBack: () => {
               videoRef.current?.pause();
@@ -130,12 +206,12 @@ const About = () => {
             videoRef.current?.pause();
           },
           onLeaveBack: () => {
-            videoRef.current?.play().catch(() => { });
+            playVideoSafely();
           },
         });
       }
     },
-    { scope: containerRef }
+    { scope: containerRef, dependencies: [playVideoSafely] }
   );
 
   return (
@@ -145,13 +221,69 @@ const About = () => {
         <div className="about-image">
           <video
             ref={videoRef}
-            src="/video/quality_broll.mp4"
+            src="/video/quality_brolll.mp4"
             loop
-            muted
             playsInline
             preload="metadata"
+            onTimeUpdate={handleTimeUpdate}
             className="about-img-bg"
           />
+
+          {/* "Get Started" CTA Button appearing 2s before video ends */}
+          <div
+            className={`about-video-cta-container ${
+              showGetStarted ? 'about-video-cta-visible' : ''
+            }`}
+          >
+            <Link href="/contact" className="about-video-cta-btn">
+              <span>Get Started</span>
+              <ArrowRight className="w-4 h-4 ml-2 transition-transform duration-300 group-hover:translate-x-1" />
+            </Link>
+          </div>
+
+          {/* Right-side Floating Volume Control Widget */}
+          <div
+            className="about-volume-widget"
+            onMouseEnter={() => setShowSlider(true)}
+            onMouseLeave={() => setShowSlider(false)}
+            aria-label="Video volume controls"
+          >
+            <div
+              className={`about-volume-slider-wrapper ${
+                showSlider ? 'about-volume-slider-open' : ''
+              }`}
+            >
+              <input
+                type="range"
+                min="0"
+                max="1"
+                step="0.01"
+                value={isMuted ? 0 : volume}
+                onChange={handleVolumeChange}
+                className="about-volume-slider"
+                aria-label="Volume slider"
+              />
+              <span className="about-volume-percent">
+                {isMuted ? '0%' : `${Math.round(volume * 100)}%`}
+              </span>
+            </div>
+
+            <button
+              type="button"
+              onClick={toggleMute}
+              className="about-volume-btn"
+              title={isMuted ? 'Unmute video' : `Mute video (${Math.round(volume * 100)}%)`}
+              aria-label={isMuted ? 'Unmute' : 'Mute'}
+            >
+              {isMuted || volume === 0 ? (
+                <VolumeX className="w-4 h-4 text-purple-300" />
+              ) : volume < 0.5 ? (
+                <Volume1 className="w-4 h-4 text-purple-200" />
+              ) : (
+                <Volume2 className="w-4 h-4 text-purple-200" />
+              )}
+            </button>
+          </div>
         </div>
       </div>
     </div>
