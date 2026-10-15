@@ -82,15 +82,25 @@ const About = () => {
   }, []);
 
   const handleVolumeChange = (e) => {
-    const newVol = parseFloat(e.target.value);
-    setVolume(newVol);
-    if (videoRef.current) {
-      videoRef.current.volume = newVol;
-      if (newVol === 0) {
-        setIsMuted(true);
+    const rawVal = parseFloat(e.target.value);
+    const newVol = isNaN(rawVal) ? 0 : Math.max(0, Math.min(1, rawVal));
+    
+    if (newVol <= 0.01) {
+      setVolume(0);
+      setIsMuted(true);
+      volumeRef.current = 0;
+      isMutedRef.current = true;
+      if (videoRef.current) {
+        videoRef.current.volume = 0;
         videoRef.current.muted = true;
-      } else {
-        setIsMuted(false);
+      }
+    } else {
+      setVolume(newVol);
+      setIsMuted(false);
+      volumeRef.current = newVol;
+      isMutedRef.current = false;
+      if (videoRef.current) {
+        videoRef.current.volume = newVol;
         videoRef.current.muted = false;
       }
     }
@@ -98,15 +108,19 @@ const About = () => {
 
   const toggleMute = () => {
     if (!videoRef.current) return;
-    if (isMuted) {
+    if (isMuted || volumeRef.current === 0) {
+      const targetVol = volumeRef.current === 0 ? 0.1 : volumeRef.current;
       videoRef.current.muted = false;
-      const targetVol = volume === 0 ? 0.1 : volume;
       videoRef.current.volume = targetVol;
+      volumeRef.current = targetVol;
+      isMutedRef.current = false;
       setVolume(targetVol);
       setIsMuted(false);
       videoRef.current.play().catch(() => {});
     } else {
       videoRef.current.muted = true;
+      videoRef.current.volume = 0;
+      isMutedRef.current = true;
       setIsMuted(true);
     }
   };
