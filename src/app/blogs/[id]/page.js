@@ -1,8 +1,10 @@
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { connectToDatabase } from "@/utils/db";
 import Blog from "@/models/Blog";
 import Section from "@/components/common/Section";
 import JsonLd from "@/components/common/JsonLd";
+import { getOptimizedImageUrl } from "@/components/home/BlogCard";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://skilledhyrelabs.com";
 
@@ -128,11 +130,15 @@ export default async function BlogDetailPage({ params }) {
 
           {/* Featured Image */}
           {blog.cardImage && (
-            <div className="relative w-full h-[400px] mb-12 rounded-2xl overflow-hidden shadow-2xl shadow-indigo-500/10">
-              <img
-                src={blog.cardImage}
+            <div className="relative w-full h-[400px] mb-12 rounded-2xl overflow-hidden shadow-2xl shadow-indigo-500/10 bg-[#0d101d]">
+              <Image
+                src={getOptimizedImageUrl(blog.cardImage, 1200)}
                 alt={blog.title}
-                className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 896px"
+                quality={80}
+                className="object-cover hover:scale-105 transition-transform duration-700"
               />
             </div>
           )}

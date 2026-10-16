@@ -14,6 +14,53 @@ export default function ImageUploader({
   // Use the API key from environment variables
   const IMGBB_API_KEY = process.env.NEXT_PUBLIC_IMGBB_API_KEY;
 
+  // Client-side image compression to convert heavy multi-MB PNGs/JPEGs into ultra-lean WebP (< 200 KB)
+  const compressImage = (file, maxWidth = 1280, maxHeight = 720, quality = 0.82) => {
+    return new Promise((resolve) => {
+      if (!file.type.startsWith("image/") || file.type === "image/svg+xml") {
+        return resolve(file);
+      }
+
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = (event) => {
+        const img = new window.Image();
+        img.src = event.target.result;
+        img.onload = () => {
+          let { width, height } = img;
+          if (width > maxWidth || height > maxHeight) {
+            const ratio = Math.min(maxWidth / width, maxHeight / height);
+            width = Math.round(width * ratio);
+            height = Math.round(height * ratio);
+          }
+
+          const canvas = document.createElement("canvas");
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext("2d");
+          ctx.drawImage(img, 0, 0, width, height);
+
+          canvas.toBlob(
+            (blob) => {
+              if (!blob || blob.size >= file.size) {
+                return resolve(file);
+              }
+              const compressedFile = new File([blob], file.name.replace(/\.[^/.]+$/, ".webp"), {
+                type: "image/webp",
+                lastModified: Date.now(),
+              });
+              resolve(compressedFile);
+            },
+            "image/webp",
+            quality
+          );
+        };
+        img.onerror = () => resolve(file);
+      };
+      reader.onerror = () => resolve(file);
+    });
+  };
+
   const handleFileUpload = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -24,10 +71,12 @@ export default function ImageUploader({
     }
 
     setIsUploading(true);
-    const formData = new FormData();
-    formData.append("image", file);
 
     try {
+      const fileToUpload = await compressImage(file);
+      const formData = new FormData();
+      formData.append("image", fileToUpload);
+
       const res = await fetch(
         `https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`,
         {
