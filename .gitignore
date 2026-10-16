@@ -35,6 +35,12 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# internal reports
+# internal reports & plans
+TODAY_WORK_REPORT.md
 TODAY_MIDDAY_REPORT.md
-MIDDAY_WORK_REPORT.md
+MIDDAY_WORK_REPORT.md
+mid_day_work_report.md
+MOBILE_PERFORMANCE_PLAN.md
+*REPORT*.md
+*report*.md
+*PLAN*.md
