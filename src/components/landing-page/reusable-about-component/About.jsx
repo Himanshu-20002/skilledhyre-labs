@@ -14,49 +14,37 @@ const About = () => {
   const containerRef = useRef(null);
   const videoRef = useRef(null);
   const [volume, setVolume] = useState(0.1);
-  const [isMuted, setIsMuted] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
   const [showSlider, setShowSlider] = useState(false);
   const [showGetStarted, setShowGetStarted] = useState(false);
 
   // Keep latest mutable state in refs
-  const isMutedRef = useRef(isMuted);
+  const isMutedRef = useRef(true);
   const volumeRef = useRef(volume);
   isMutedRef.current = isMuted;
   volumeRef.current = volume;
 
-  // Optimized playback trigger: ALWAYS tries unmuted with volume at 10%
-  const playVideoSafely = useCallback(() => {
+  // Playback trigger: withAudio=true un-mutes and plays at 10% volume
+  const playVideoSafely = useCallback((withAudio = false) => {
     const video = videoRef.current;
     if (!video) return;
 
-    video.volume = volumeRef.current;
-    video.muted = isMutedRef.current;
+    if (withAudio) {
+      video.muted = false;
+      video.volume = volumeRef.current || 0.1;
+      setIsMuted(false);
+      isMutedRef.current = false;
+    } else {
+      video.muted = isMutedRef.current;
+      video.volume = volumeRef.current;
+    }
 
     const promise = video.play();
     if (promise !== undefined) {
       promise.catch((err) => {
-        // If the browser blocks audio due to lack of prior user gesture,
-        // play muted temporarily and unlock audio on the very first user interaction
         if (err.name === 'NotAllowedError') {
           video.muted = true;
           video.play().catch(() => {});
-
-          const unlockAudio = () => {
-            if (videoRef.current && !isMutedRef.current) {
-              videoRef.current.muted = false;
-              videoRef.current.volume = volumeRef.current;
-              setIsMuted(false);
-            }
-            window.removeEventListener('click', unlockAudio);
-            window.removeEventListener('scroll', unlockAudio);
-            window.removeEventListener('keydown', unlockAudio);
-            window.removeEventListener('touchstart', unlockAudio);
-          };
-
-          window.addEventListener('click', unlockAudio, { once: true });
-          window.addEventListener('scroll', unlockAudio, { once: true, passive: true });
-          window.addEventListener('keydown', unlockAudio, { once: true });
-          window.addEventListener('touchstart', unlockAudio, { once: true, passive: true });
         }
       });
     }
@@ -72,13 +60,33 @@ const About = () => {
     setShowGetStarted((prev) => (prev !== shouldShow ? shouldShow : prev));
   }, []);
 
-  // Initial video setup: 10% volume, not muted
+  // Initial video setup: Starts playing muted on site load & pauses when scrolled completely offscreen
   useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.volume = 0.1;
-      videoRef.current.muted = false;
-      videoRef.current.pause();
+    const video = videoRef.current;
+    if (!video) return;
+
+    video.volume = 0.1;
+    video.muted = true;
+    setIsMuted(true);
+    isMutedRef.current = true;
+
+    const promise = video.play();
+    if (promise !== undefined) {
+      promise.catch(() => {});
     }
+
+    // Hardware/CPU Optimization: Guarantee video pauses when scrolled offscreen anywhere on page
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) {
+          video.pause();
+        }
+      },
+      { threshold: 0 }
+    );
+
+    observer.observe(video);
+    return () => observer.disconnect();
   }, []);
 
   const handleVolumeChange = (e) => {
@@ -151,13 +159,22 @@ const About = () => {
             preventOverlaps: true,
             invalidateOnRefresh: true,
             onEnter: () => {
-              playVideoSafely();
+              playVideoSafely(true); // User scrolled into view -> play with 10% volume
             },
             onEnterBack: () => {
-              playVideoSafely();
+              playVideoSafely(true);
+            },
+            onLeave: () => {
+              videoRef.current?.pause(); // Scrolled down past video -> pause immediately to save CPU/battery
             },
             onLeaveBack: () => {
-              videoRef.current?.pause();
+              // Scrolled back up to Hero -> keep video playing muted
+              if (videoRef.current) {
+                videoRef.current.muted = true;
+                setIsMuted(true);
+                isMutedRef.current = true;
+                videoRef.current.play().catch(() => {});
+              }
             },
           },
         });
@@ -196,13 +213,21 @@ const About = () => {
             preventOverlaps: true,
             invalidateOnRefresh: true,
             onEnter: () => {
-              playVideoSafely();
+              playVideoSafely(true); // Mobile: user scrolled into view -> play with 10% volume
             },
             onEnterBack: () => {
-              playVideoSafely();
+              playVideoSafely(true);
+            },
+            onLeave: () => {
+              videoRef.current?.pause(); // Mobile: Scrolled down past video -> pause immediately
             },
             onLeaveBack: () => {
-              videoRef.current?.pause();
+              if (videoRef.current) {
+                videoRef.current.muted = true;
+                setIsMuted(true);
+                isMutedRef.current = true;
+                videoRef.current.play().catch(() => {});
+              }
             },
           },
         });
@@ -252,6 +277,8 @@ const About = () => {
           <video
             ref={videoRef}
             src="/video/quality_broll_new.mp4"
+            autoPlay
+            muted
             loop
             playsInline
             preload="auto"
