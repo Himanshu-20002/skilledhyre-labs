@@ -251,10 +251,10 @@ const About = () => {
         <div className="about-image">
           <video
             ref={videoRef}
-            src="/video/quality_brolll.mp4"
+            src="/video/quality_broll_new.mp4"
             loop
             playsInline
-            preload="metadata"
+            preload="auto"
             onTimeUpdate={handleTimeUpdate}
             className="about-img-bg"
           />

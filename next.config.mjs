@@ -65,7 +65,7 @@ const nextConfig = {
         ],
       },
       {
-        source: "/(fonts|images|_next/static)/:path*",
+        source: "/(fonts|images|video|_next/static)/:path*",
         headers: [
           {
             key: "Cache-Control",
