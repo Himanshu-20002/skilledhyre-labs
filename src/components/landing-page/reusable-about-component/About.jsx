@@ -42,9 +42,32 @@ const About = () => {
     const promise = video.play();
     if (promise !== undefined) {
       promise.catch((err) => {
+        // Modern browsers block unmuted playback if user hasn't clicked/tapped the page yet
         if (err.name === 'NotAllowedError') {
           video.muted = true;
+          setIsMuted(true);
+          isMutedRef.current = true;
           video.play().catch(() => {});
+
+          // As soon as user clicks anywhere, touches screen, or presses any key, unlock audio immediately
+          const unlock = () => {
+            if (videoRef.current) {
+              videoRef.current.muted = false;
+              videoRef.current.volume = volumeRef.current || 0.1;
+              setIsMuted(false);
+              isMutedRef.current = false;
+              videoRef.current.play().catch(() => {});
+            }
+            window.removeEventListener('click', unlock);
+            window.removeEventListener('pointerdown', unlock);
+            window.removeEventListener('keydown', unlock);
+            window.removeEventListener('touchstart', unlock);
+          };
+
+          window.addEventListener('click', unlock, { once: true });
+          window.addEventListener('pointerdown', unlock, { once: true });
+          window.addEventListener('keydown', unlock, { once: true });
+          window.addEventListener('touchstart', unlock, { once: true, passive: true });
         }
       });
     }
