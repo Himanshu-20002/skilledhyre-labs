@@ -371,8 +371,8 @@
 
   .reviewsMarqueeContent {
     padding: 10px 0;
-    mask-image: linear-gradient(to right, transparent, #000 3%, #000 97%, transparent);
-    -webkit-mask-image: linear-gradient(to right, transparent, #000 3%, #000 97%, transparent);
+    mask-image: none !important;
+    -webkit-mask-image: none !important;
   }
 
   .brandsMarqueeContent {

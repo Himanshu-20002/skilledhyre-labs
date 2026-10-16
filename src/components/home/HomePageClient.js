@@ -9,18 +9,24 @@ import InsightsSection from "@/components/landing-page/InsightsSection";
 import NewsSection from "@/components/landing-page/NewsSection";
 import FloatingSpheresBackground from "@/components/common/FloatingSpheresBackground";
 
-// Dynamically load heavy below-the-fold storytelling & review sections
+// Dynamically load heavy below-the-fold storytelling & review sections with zero CLS layout reservation
 const ServicesScroll = dynamic(
   () =>
     import("@/components/services-storytelling").then(
       (mod) => mod.ServicesScroll
     ),
-  { ssr: false }
+  {
+    ssr: false,
+    loading: () => <div className="min-h-[650px] w-full bg-transparent" />,
+  }
 );
 
 const ReviewsSection = dynamic(
   () => import("@/components/ReviewsSection"),
-  { ssr: false }
+  {
+    ssr: false,
+    loading: () => <div className="min-h-[450px] w-full bg-transparent" />,
+  }
 );
 
 export default function HomePageClient() {

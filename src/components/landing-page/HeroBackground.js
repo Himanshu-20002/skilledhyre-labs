@@ -118,7 +118,9 @@ export default function HeroBackground() {
         return (
           <div
             key={idx}
-            className="absolute pointer-events-none transform-gpu will-change-transform"
+            className={`absolute pointer-events-none transform-gpu will-change-transform ${
+              idx >= 6 ? "hidden sm:block" : ""
+            }`}
             style={posStyle}
           >
             <svg
@@ -127,7 +129,6 @@ export default function HeroBackground() {
               viewBox="0 0 24 24"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              className="drop-shadow-[0_0_6px_currentColor]"
             >
               <path
                 d="M12 0L14.2 9.8L24 12L14.2 14.2L12 24L9.8 14.2L0 12L9.8 9.8L12 0Z"

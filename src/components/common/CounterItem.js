@@ -1,28 +1,47 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import { useInView, useSpring } from "framer-motion";
 
 export default function CounterItem({ value, label, suffix = "" }) {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
-  const springValue = useSpring(0, {
-    bounce: 0,
-    duration: 2000,
-  });
   const [displayValue, setDisplayValue] = useState(0);
+  const animatedRef = useRef(false);
 
   useEffect(() => {
-    if (isInView) {
-      springValue.set(value);
-    }
-  }, [isInView, value, springValue]);
+    const element = ref.current;
+    if (!element) return;
 
-  useEffect(() => {
-    const unsubscribe = springValue.on("change", (latest) => {
-      setDisplayValue(Math.floor(latest));
-    });
-    return () => unsubscribe();
-  }, [springValue]);
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !animatedRef.current) {
+          animatedRef.current = true;
+          const duration = 1800; // ms
+          const startTime = performance.now();
+
+          const animate = (currentTime) => {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            // Ease-out cubic curve
+            const easeOutProgress = 1 - Math.pow(1 - progress, 3);
+            const currentCount = Math.floor(easeOutProgress * value);
+
+            setDisplayValue(currentCount);
+
+            if (progress < 1) {
+              requestAnimationFrame(animate);
+            } else {
+              setDisplayValue(value);
+            }
+          };
+
+          requestAnimationFrame(animate);
+        }
+      },
+      { rootMargin: "-30px 0px" }
+    );
+
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, [value]);
 
   return (
     <div ref={ref} className="text-center">

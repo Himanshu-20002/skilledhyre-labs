@@ -20,6 +20,12 @@ export default function FloatingSpheresBackground({ variant = "default" }) {
         .animate-svg-orb-b {
           animation: floatSvgOrbB 16s ease-in-out infinite;
         }
+        @media (max-width: 768px) {
+          .animate-svg-orb-a,
+          .animate-svg-orb-b {
+            animation: none !important;
+          }
+        }
       `}</style>
 
       {/* Single Full-Section Responsive SVG Canvas — Zero Vertical/Horizontal Cutoff Lines & 120 FPS */}

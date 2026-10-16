@@ -221,17 +221,15 @@ const About = () => {
         );
       });
 
-      // Mobile: Optimized aesthetic height, scaling, and 120 FPS smooth scrub
+      // Mobile: Fluid non-pinning scroll animation with 120 FPS GPU scaling (zero touch jank or address bar jitter)
       mm.add("(max-width: 768px)", () => {
         const clipAnimation = gsap.timeline({
           scrollTrigger: {
             trigger: '#clip',
-            start: 'top 29%',
-            end: '+=450',
-            scrub: 0.6,
-            pin: true,
-            pinSpacing: true,
-            anticipatePin: 1,
+            start: 'top 85%',
+            end: 'center 45%',
+            scrub: 0.5,
+            pin: false,
             fastScrollEnd: true,
             preventOverlaps: true,
             invalidateOnRefresh: true,
@@ -258,7 +256,7 @@ const About = () => {
         clipAnimation.fromTo(
           '.about-image',
           {
-            scale: 0.88,
+            scale: 0.92,
             borderRadius: '1.25rem',
             transformOrigin: 'center center',
             force3D: true,
@@ -304,7 +302,7 @@ const About = () => {
             muted
             loop
             playsInline
-            preload="auto"
+            preload="metadata"
             onTimeUpdate={handleTimeUpdate}
             className="about-img-bg"
           />
