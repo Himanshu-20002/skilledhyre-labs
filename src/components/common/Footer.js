@@ -39,10 +39,10 @@ function AnimatedSaaSTiles() {
           i % 5 === 1
             ? "tile-glow-cyan"
             : i % 5 === 2
-            ? "tile-glow-indigo"
-            : i % 5 === 4
-            ? "tile-glow-purple"
-            : "tile-glow-subtle";
+              ? "tile-glow-indigo"
+              : i % 5 === 4
+                ? "tile-glow-purple"
+                : "tile-glow-subtle";
         const delay = `${((i * 37) % 29) / 10}s`;
         return (
           <div
@@ -360,12 +360,17 @@ export default function Footer() {
         </div>
 
         {/* Bottom copyright bar */}
-        <div className="pt-6 flex flex-col md:flex-row items-center justify-between gap-3 text-[0.7rem] text-gray-500">
-          <p>&copy; {new Date().getFullYear()} SkilledHyre Labs. All rights reserved.</p>
+        <div className="w-full pt-8  flex flex-col sm:flex-row items-center justify-between gap-1 sm:gap-6 text-center sm:text-left">
+          <p className="text-xs sm:text-sm text-gray-300 text-center sm:text-left">
+            © {new Date().getFullYear()} <span className="text-white font-semibold">SkilledHyre Labs</span>. All rights reserved.
+          </p>
+          <p className="text-[11px] sm:text-xs text-gray-500 tracking-wide text-center sm:text-right">
+            A unit of <span className="text-gray-400 font-medium">Devaadya Technologies Private Limited.</span>
+          </p>
         </div>
 
         {/* Compact Watermark Typography with Minimal Left-to-Right Light Shimmer */}
-        <div className="pt-6 text-center pointer-events-none select-none overflow-hidden">
+        <div className="pt-4 text-center pointer-events-none select-none overflow-hidden">
           <span className="text-3xl sm:text-5xl lg:text-[6vw] font-extrabold tracking-tighter uppercase leading-none block animate-shimmer-sweep">
             SKILLEDHYRE LABS
           </span>
