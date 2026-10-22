@@ -69,63 +69,25 @@ export default function LocalizedLeadForm({ leadCapture, countryMeta, pageTitle,
   };
 
   return (
-    <section id="lead-capture" className="relative py-16 md:py-24 overflow-hidden bg-[#07040d]">
-      {/* 1. Deep Core Radiant Background Halo */}
+    <section id="lead-capture" className="relative py-14 md:py-20 bg-[#07040d] overflow-hidden">
+      {/* Clean, Soft Ambient Glow Behind Form (No Harsh Rings or Capsules) */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background: `
-            radial-gradient(ellipse 90% 70% at 50% 50%, rgba(168, 85, 247, 0.28) 0%, rgba(99, 102, 241, 0.20) 40%, rgba(56, 189, 248, 0.08) 70%, transparent 100%),
-            #07040d
+            radial-gradient(ellipse 75% 55% at 50% 50%, rgba(99, 102, 241, 0.16) 0%, rgba(168, 85, 247, 0.08) 40%, rgba(56, 189, 248, 0.03) 70%, transparent 100%)
           `,
         }}
       />
-
-      {/* 2. Architectural Glowing Concentric Half-Circle Domes & Ambience */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden select-none">
-        {/* Outer Radiant Half-Circle Arch */}
-        <div
-          className="absolute -top-36 sm:-top-52 left-1/2 -translate-x-1/2 w-[700px] sm:w-[1100px] lg:w-[1300px] h-[360px] sm:h-[540px] rounded-full border border-purple-500/25 pointer-events-none transform-gpu shadow-[0_0_90px_rgba(168,85,247,0.22)]"
-          style={{
-            background: "radial-gradient(ellipse 70% 60% at 50% 0%, rgba(168, 85, 247, 0.20) 0%, rgba(99, 102, 241, 0.10) 50%, transparent 90%)",
-          }}
-        />
-
-        {/* Middle Concentric Glowing Half-Circle */}
-        <div
-          className="absolute -top-16 sm:-top-28 left-1/2 -translate-x-1/2 w-[500px] sm:w-[840px] h-[260px] sm:h-[420px] rounded-full border border-cyan-400/25 pointer-events-none transform-gpu shadow-[0_0_60px_rgba(56,189,248,0.18)]"
-          style={{
-            background: "radial-gradient(ellipse 65% 55% at 50% 0%, rgba(56, 189, 248, 0.16) 0%, transparent 95%)",
-          }}
-        />
-
-        {/* Direct Central Backlight Halo Behind Card */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[850px] h-[450px] bg-gradient-to-r from-purple-600/30 via-indigo-600/35 to-cyan-400/25 rounded-full blur-[100px] pointer-events-none transform-gpu" />
-
-        {/* Lateral Ambient Glowing Spheres */}
-        <div className="absolute top-1/3 -left-32 w-96 h-96 rounded-full bg-purple-600/20 blur-3xl pointer-events-none" />
-        <div className="absolute top-1/3 -right-32 w-96 h-96 rounded-full bg-cyan-500/20 blur-3xl pointer-events-none" />
-
-        {/* Technical Blueprint Dot Matrix Grid */}
-        <div
-          className="absolute inset-0 opacity-45 pointer-events-none"
-          style={{
-            backgroundImage: "radial-gradient(rgba(216, 180, 254, 0.5) 1px, transparent 1px)",
-            backgroundSize: "28px 28px",
-            maskImage: "radial-gradient(ellipse 80% 70% at 50% 50%, black 30%, transparent 80%)",
-            WebkitMaskImage: "radial-gradient(ellipse 80% 70% at 50% 50%, black 30%, transparent 80%)",
-          }}
-        />
-      </div>
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-gradient-to-r from-purple-600/15 via-indigo-600/20 to-cyan-500/15 rounded-full blur-[120px] pointer-events-none transform-gpu" />
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-20 relative z-10">
-        {/* Glowing Gradient Border Chassis */}
-        <div className="max-w-5xl mx-auto p-[1px] rounded-2xl sm:rounded-3xl bg-gradient-to-r from-[#6366f1]/60 via-[#a855f7]/40 to-[#38bdf8]/60 shadow-[0_25px_60px_rgba(0,0,0,0.8),0_0_40px_rgba(99,102,241,0.25)]">
-          <div className="rounded-[15px] sm:rounded-[23px] bg-[#090d18]/95 backdrop-blur-2xl p-6 sm:p-8 lg:p-10 relative overflow-hidden">
-            {/* Ambient Card Interior Glow */}
-            <div className="absolute top-0 right-1/4 w-72 h-72 bg-[#38bdf8]/15 rounded-full blur-3xl pointer-events-none" />
+        {/* Clean, Sleek Card */}
+        <div className="max-w-5xl mx-auto rounded-2xl sm:rounded-3xl bg-[#0b0f1a]/95 backdrop-blur-xl border border-white/10 shadow-[0_20px_60px_rgba(0,0,0,0.7)] p-6 sm:p-8 lg:p-10 relative overflow-hidden">
+          {/* Subtle interior glow */}
+          <div className="absolute top-0 right-1/4 w-64 h-64 bg-[#38bdf8]/10 rounded-full blur-3xl pointer-events-none" />
 
-            <div className="relative z-10">
+          <div className="relative z-10">
               {isSuccess ? (
                 <div className="py-10 text-center max-w-lg mx-auto">
                   <CheckCircleIcon className="w-12 h-12 text-emerald-400 mx-auto mb-3" />
@@ -312,7 +274,6 @@ export default function LocalizedLeadForm({ leadCapture, countryMeta, pageTitle,
             </div>
           </div>
         </div>
-      </div>
     </section>
   );
 }
