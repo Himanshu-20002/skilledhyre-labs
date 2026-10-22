@@ -136,7 +136,6 @@ const navigation = [
       },
     ],
   },
-  { name: "Blogs", href: "/blogs" },
   { name: "News", href: "/news" },
 ];
 
@@ -254,24 +253,21 @@ export default function Header() {
               )}
             </div>
           ))}
-        </div>
 
-        {/* Desktop Regional Selector + CTA */}
-        <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:items-center lg:gap-3">
-          {/* Market Dropdown Pill */}
+          {/* Global Markets Dropdown (Inside Pill Capsule) */}
           <div className="relative group/market">
             <button
               type="button"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#121624]/90 border border-white/10 hover:border-[#6366f1]/50 text-gray-300 hover:text-white transition-all text-xs font-medium backdrop-blur-md"
+              className="flex items-center gap-1.5 text-xs font-medium leading-5 text-gray-300 hover:text-white px-3 py-1.5 rounded-full hover:bg-white/10 transition-all duration-200"
               aria-label="Select Market"
             >
               <GlobeAltIcon className="w-3.5 h-3.5 text-cyan-400" />
               <span>Global</span>
-              <ChevronDownIcon className="w-3 h-3 text-gray-400 group-hover/market:rotate-180 transition-transform duration-200" />
+              <ChevronDownIcon className="w-3 h-3 text-gray-400 group-hover/market:text-cyan-400 group-hover/market:rotate-180 transition-transform duration-200" />
             </button>
 
-            <div className="absolute right-0 top-full pt-2 w-56 opacity-0 translate-y-1 invisible group-hover/market:opacity-100 group-hover/market:translate-y-0 group-hover/market:visible transition-all duration-200 z-50">
-              <div className="p-2 rounded-2xl bg-[#0d111d]/95 backdrop-blur-2xl border border-white/10 shadow-2xl shadow-black/80 space-y-1">
+            <div className="absolute right-0 top-full pt-3 w-56 opacity-0 invisible group-hover/market:opacity-100 group-hover/market:visible transition-all duration-200 transform translate-y-2 group-hover/market:translate-y-0 z-50">
+              <div className="bg-[#0D1322]/95 backdrop-blur-2xl border border-white/15 rounded-2xl shadow-2xl p-2 ring-1 ring-black/50 space-y-1">
                 <div className="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-gray-400">
                   Regional Hubs
                 </div>
@@ -293,8 +289,10 @@ export default function Header() {
               </div>
             </div>
           </div>
+        </div>
 
-          {/* CTA Button */}
+        {/* Desktop CTA */}
+        <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:items-center">
           <Link
             href="/contact"
             className="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-xs font-semibold rounded-full group bg-gradient-to-br from-cyan-500 via-indigo-500 to-purple-600 group-hover:from-cyan-500 group-hover:to-purple-600 hover:text-white text-white shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/40 transition-all duration-300"
