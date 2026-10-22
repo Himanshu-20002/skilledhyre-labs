@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import Section from "./Section";
 import * as Icons from "@heroicons/react/24/outline";
 import Card from "./Card";
@@ -126,12 +127,12 @@ export default function GenericServicePage({ content }) {
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-8">
             {cta.title}
           </h2>
-          <a
+          <Link
             href="/contact"
             className="inline-block px-8 py-4 bg-white text-black font-semibold rounded-lg hover:bg-gray-200 transition-colors"
           >
             {cta.buttonText}
-          </a>
+          </Link>
         </div>
       </Section>
     </div>

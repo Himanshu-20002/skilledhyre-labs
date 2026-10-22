@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "npx cross-env NODE_OPTIONS=\"--require ./scripts/dns-override.js\" next dev --turbopack",
-    "build": "next build --turbopack",
+    "build": "next build",
     "start": "next start",
     "lint": "eslint"
   },

@@ -1,12 +1,13 @@
 import React from "react";
 import Button from "@/components/common/Button";
 import { SparklesIcon } from "@heroicons/react/24/outline";
+import HeroConsoleShowcase from "./HeroConsoleShowcase";
 
 export default function InternationalHero({ hero, countryMeta }) {
   if (!hero) return null;
 
   return (
-    <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden bg-[#07040d]">
+    <section className="relative pt-28 pb-16 md:pt-36 md:pb-20 overflow-hidden bg-[#07040d]">
       {/* 1. Deep Core Dark Background & Radial Glow Halo */}
       <div
         className="absolute inset-0 pointer-events-none"
@@ -73,7 +74,7 @@ export default function InternationalHero({ hero, countryMeta }) {
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-20 relative z-10 text-center">
         {/* Market Badge */}
-        <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-[#121624]/90 border border-[#6366f1]/40 shadow-[0_0_25px_rgba(99,102,241,0.25)] mb-8 backdrop-blur-md">
+        <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-[#121624]/90 border border-[#6366f1]/40 shadow-[0_0_25px_rgba(99,102,241,0.25)] mb-6 backdrop-blur-md">
           <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_#34d399]" />
           <span className="text-xs sm:text-sm font-semibold text-gray-200 tracking-wide">
             {hero.marketBadge || `${countryMeta?.flag || "🌐"} ${countryMeta?.name || "Global"} Market`}
@@ -81,19 +82,19 @@ export default function InternationalHero({ hero, countryMeta }) {
         </div>
 
         {/* Headline with High-Contrast Gradient Typography */}
-        <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold max-w-5xl mx-auto leading-[1.14] tracking-tight mb-6">
+        <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold max-w-5xl mx-auto leading-[1.14] tracking-tight mb-5">
           <span className="bg-gradient-to-b from-white via-slate-100 to-slate-300 bg-clip-text text-transparent">
             {hero.headline}
           </span>
         </h1>
 
         {/* Subheadline with balanced contrast */}
-        <p className="max-w-3xl mx-auto text-base sm:text-lg lg:text-xl text-slate-300 leading-relaxed mb-10 font-normal">
+        <p className="max-w-3xl mx-auto text-base sm:text-lg lg:text-xl text-slate-300 leading-relaxed mb-8 font-normal">
           {hero.subheadline}
         </p>
 
         {/* CTA Actions */}
-        <div className="flex flex-wrap items-center justify-center gap-4 mb-16">
+        <div className="flex flex-wrap items-center justify-center gap-4 mb-10">
           <Button href={hero.primaryCta?.href || "#lead-capture"} variant="primary">
             {hero.primaryCta?.text || "Book Discovery Call"}
           </Button>
@@ -104,22 +105,25 @@ export default function InternationalHero({ hero, countryMeta }) {
 
         {/* Trust Badges / Key Metrics with Glass Highlight */}
         {hero.metrics && hero.metrics.length > 0 && (
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto pt-8 border-t border-white/10">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto pt-6 border-t border-white/10">
             {hero.metrics.map((item, idx) => (
               <div
                 key={idx}
-                className="p-5 rounded-2xl bg-gradient-to-b from-white/[0.06] via-white/[0.02] to-transparent border border-white/10 hover:border-[#6366f1]/50 hover:shadow-[0_8px_25px_rgba(99,102,241,0.2)] transition-all duration-300 backdrop-blur-sm"
+                className="p-4 rounded-2xl bg-gradient-to-b from-white/[0.06] via-white/[0.02] to-transparent border border-white/10 hover:border-[#6366f1]/50 hover:shadow-[0_8px_25px_rgba(99,102,241,0.2)] transition-all duration-300 backdrop-blur-sm"
               >
                 <div className="text-2xl sm:text-3xl font-extrabold bg-gradient-to-r from-white via-[#818cf8] to-[#38bdf8] bg-clip-text text-transparent">
                   {item.value}
                 </div>
-                <div className="text-xs sm:text-sm text-gray-300 mt-1.5 font-medium">
+                <div className="text-xs sm:text-sm text-gray-300 mt-1 font-medium">
                   {item.label}
                 </div>
               </div>
             ))}
           </div>
         )}
+
+        {/* Interactive Hero Console UI Showcase (Images & Mockup) */}
+        <HeroConsoleShowcase countryName={countryMeta?.name || "Global"} />
       </div>
 
       {/* Smooth Bottom Transition Fade */}

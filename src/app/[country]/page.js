@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import {
   getCountry,
   getAllCountryParams,
@@ -9,11 +10,14 @@ import Section from "@/components/common/Section";
 import Button from "@/components/common/Button";
 import BreadcrumbJsonLd from "@/components/common/BreadcrumbJsonLd";
 import LocalizedLeadForm from "@/components/international/LocalizedLeadForm";
+import HeroConsoleShowcase from "@/components/international/HeroConsoleShowcase";
 import {
   ArrowRightIcon,
   SparklesIcon,
   ClockIcon,
   ShieldCheckIcon,
+  CpuChipIcon,
+  CheckBadgeIcon,
 } from "@heroicons/react/24/outline";
 
 export const dynamicParams = false;
@@ -119,7 +123,7 @@ export default async function CountryHubPage({ params }) {
             <span>{countryMeta.timezone}</span>
           </div>
 
-          <div className="flex justify-center gap-4">
+          <div className="flex justify-center gap-4 mb-8">
             <Button href="#available-services" variant="primary">
               Explore Services
             </Button>
@@ -127,17 +131,24 @@ export default async function CountryHubPage({ params }) {
               Book Consultation
             </Button>
           </div>
+
+          {/* Interactive Hero Console UI Showcase */}
+          <HeroConsoleShowcase countryName={countryMeta.name} />
         </Section>
 
       {/* Available Market Services Grid */}
-      <Section id="available-services" className="bg-[#090d18]/40">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl sm:text-4xl font-bold text-white mb-3">
+      <Section id="available-services" className="bg-[#090d18]/40 py-12 md:py-16">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-10 sm:mb-12">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#6366f1]/10 border border-[#6366f1]/20 text-indigo-300 text-xs font-semibold uppercase tracking-wider mb-3">
+              <SparklesIcon className="w-3.5 h-3.5 text-indigo-400" />
+              <span>Dedicated Solutions</span>
+            </div>
+            <h2 className="text-2xl sm:text-4xl font-bold text-white mb-2">
               Specialized Solutions for {countryMeta.name}
             </h2>
-            <p className="text-gray-400 text-sm sm:text-base">
-              Dedicated engineering capabilities tailored to {countryMeta.name} business requirements.
+            <p className="text-gray-400 text-sm sm:text-base max-w-2xl mx-auto">
+              Production-ready architectures engineered specifically for {countryMeta.name} enterprise compliance and scale.
             </p>
           </div>
 
@@ -146,48 +157,80 @@ export default async function CountryHubPage({ params }) {
               <Link
                 key={idx}
                 href={`/${countryMeta.code}/${page.slug}`}
-                className="group p-8 rounded-2xl bg-gradient-to-br from-[#121624] via-[#0d101d] to-[#0a0c16] border border-white/10 hover:border-[#6366f1]/50 hover:shadow-[0_12px_30px_rgba(99,102,241,0.2)] transition-all duration-300 flex flex-col justify-between"
+                className="group rounded-3xl bg-gradient-to-br from-[#121624] via-[#0d101d] to-[#0a0c16] border border-white/10 hover:border-[#6366f1]/50 hover:shadow-[0_15px_40px_rgba(99,102,241,0.25)] transition-all duration-300 overflow-hidden flex flex-col justify-between"
               >
-                <div>
-                  <div className="inline-block px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-semibold mb-4">
+                {/* Visual Thumbnail Banner */}
+                <div className="relative aspect-[21/9] w-full bg-[#05070e] overflow-hidden border-b border-white/10">
+                  <Image
+                    src={
+                      idx % 2 === 0
+                        ? "/images/international/ai-dashboard-preview.jpg"
+                        : "/images/international/cloud-architecture-preview.jpg"
+                    }
+                    alt={page.hero.headline}
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 550px"
+                    className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0d101d] via-transparent to-transparent" />
+                  <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-[#090d18]/90 backdrop-blur-md border border-white/20 text-[10px] font-mono text-cyan-300 font-semibold uppercase">
                     {page.serviceCategory || "Specialized Service"}
                   </div>
-                  <h3 className="text-xl font-bold text-white group-hover:text-[#38bdf8] transition-colors mb-3">
-                    {page.hero.headline}
-                  </h3>
-                  <p className="text-sm text-gray-400 leading-relaxed line-clamp-3 mb-6">
-                    {page.hero.subheadline}
-                  </p>
                 </div>
 
-                <div className="flex items-center gap-2 text-sm font-semibold text-[#38bdf8] pt-4 border-t border-white/10 group-hover:translate-x-1 transition-transform">
-                  <span>Explore Service & Deliverables</span>
-                  <ArrowRightIcon className="w-4 h-4" />
+                <div className="p-6 sm:p-7 flex-1 flex flex-col justify-between">
+                  <div>
+                    <h3 className="text-lg sm:text-xl font-bold text-white group-hover:text-[#38bdf8] transition-colors mb-2.5 leading-snug">
+                      {page.hero.headline}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-gray-400 leading-relaxed line-clamp-2 mb-4">
+                      {page.hero.subheadline}
+                    </p>
+
+                    {/* Micro Feature Badges */}
+                    <div className="flex flex-wrap items-center gap-2 mb-4">
+                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-[11px] font-medium text-gray-300">
+                        <CheckBadgeIcon className="w-3 h-3 text-emerald-400" />
+                        <span>SLA Latency Guarantee</span>
+                      </span>
+                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-[11px] font-medium text-gray-300">
+                        <ClockIcon className="w-3 h-3 text-cyan-400" />
+                        <span>Timezone Aligned Squad</span>
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-2 text-xs font-semibold text-[#38bdf8] pt-3 border-t border-white/10 group-hover:translate-x-1 transition-transform">
+                    <span>View Architecture &amp; Deliverables</span>
+                    <ArrowRightIcon className="w-3.5 h-3.5" />
+                  </div>
                 </div>
               </Link>
             ))}
 
             {/* General Custom Software Link */}
-            <div className="p-8 rounded-2xl bg-gradient-to-br from-white/[0.02] to-transparent border border-white/5 flex flex-col justify-between">
-              <div>
+            <div className="rounded-3xl bg-gradient-to-br from-white/[0.03] to-transparent border border-white/10 p-6 sm:p-8 flex flex-col justify-between overflow-hidden relative">
+              <div className="relative z-10">
                 <div className="inline-block px-3 py-1 rounded-full bg-white/5 text-gray-400 text-xs font-semibold mb-4">
-                  Full Catalog
+                  Complete Technical Laboratory
                 </div>
-                <h3 className="text-xl font-bold text-white mb-3">
-                  Custom Engineering & Dedicated Squads
+                <h3 className="text-lg sm:text-xl font-bold text-white mb-2.5">
+                  Custom Engineering &amp; Autonomous Squads
                 </h3>
-                <p className="text-sm text-gray-400 leading-relaxed mb-6">
-                  Need custom software, full-stack product engineering, or a specialized technical architecture? Explore our complete engineering laboratory.
+                <p className="text-xs sm:text-sm text-gray-400 leading-relaxed mb-6">
+                  Need a bespoke system, high-frequency backend, microservices refactoring, or a specialized technical architecture? Browse our full laboratory solutions.
                 </p>
               </div>
 
-              <Link
-                href="/services"
-                className="inline-flex items-center gap-2 text-sm font-semibold text-gray-300 hover:text-white"
-              >
-                <span>Browse All Services</span>
-                <ArrowRightIcon className="w-4 h-4" />
-              </Link>
+              <div className="relative z-10 pt-4 border-t border-white/10">
+                <Link
+                  href="/services"
+                  className="inline-flex items-center gap-2 text-xs font-semibold text-gray-300 hover:text-white group/btn"
+                >
+                  <span>Browse All Services</span>
+                  <ArrowRightIcon className="w-3.5 h-3.5 text-[#38bdf8] group-hover/btn:translate-x-1 transition-transform" />
+                </Link>
+              </div>
             </div>
           </div>
         </div>
