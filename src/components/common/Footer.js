@@ -80,6 +80,12 @@ const footerNavigation = {
     { name: "Privacy Policy", href: "/privacy" },
     { name: "Terms & Conditions", href: "/terms" },
   ],
+  regional: [
+    { name: "United States", flag: "🇺🇸", href: "/usa" },
+    { name: "United Kingdom", flag: "🇬🇧", href: "/uk" },
+    { name: "Australia", flag: "🇦🇺", href: "/au" },
+    { name: "UAE / Dubai", flag: "🇦🇪", href: "/uae" },
+  ],
   social: [
     {
       name: "Facebook",
@@ -272,7 +278,7 @@ export default function Footer() {
           </div>
 
           {/* Nav Links Grid */}
-          <div className="lg:col-span-8 grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="lg:col-span-8 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
             {/* Solutions */}
             <div>
               <h4 className="text-xs font-bold uppercase tracking-wider text-[#38bdf8] mb-4">
@@ -336,6 +342,28 @@ export default function Footer() {
               </ul>
             </div>
 
+            {/* Regional Hubs */}
+            <div>
+              <h4 className="text-xs font-bold uppercase tracking-wider text-[#38bdf8] mb-4">
+                Global Hubs
+              </h4>
+              <ul className="space-y-3">
+                {footerNavigation.regional.map((item) => (
+                  <li key={item.name}>
+                    <Link
+                      href={item.href}
+                      className="group inline-flex items-center gap-1.5 text-xs sm:text-sm text-gray-300 hover:text-white font-medium transition-all duration-200"
+                    >
+                      <span className="text-xs">{item.flag}</span>
+                      <span className="transition-transform duration-200 group-hover:translate-x-1">
+                        {item.name}
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
             {/* Legal */}
             <div>
               <h4 className="text-xs font-bold uppercase tracking-wider text-[#38bdf8] mb-4">
@@ -359,8 +387,30 @@ export default function Footer() {
           </div>
         </div>
 
+        {/* Global Market Switcher Bar */}
+        <div className="w-full pt-8 pb-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-3">
+          <div className="flex items-center gap-2 text-gray-400">
+            <span className="text-sm">🌐</span>
+            <span className="font-semibold text-gray-300 uppercase tracking-wider text-[11px]">
+              Global Presence:
+            </span>
+          </div>
+          <div className="flex flex-wrap items-center gap-2 sm:gap-2.5">
+            {footerNavigation.regional.map((r) => (
+              <Link
+                key={r.name}
+                href={r.href}
+                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.04] border border-white/10 text-gray-300 hover:text-white hover:border-[#6366f1]/50 hover:bg-[#6366f1]/10 transition-colors text-xs"
+              >
+                <span>{r.flag}</span>
+                <span>{r.name}</span>
+              </Link>
+            ))}
+          </div>
+        </div>
+
         {/* Bottom copyright bar */}
-        <div className="w-full pt-8  flex flex-col sm:flex-row items-center justify-between gap-1 sm:gap-6 text-center sm:text-left">
+        <div className="w-full pt-4 flex flex-col sm:flex-row items-center justify-between gap-1 sm:gap-6 text-center sm:text-left">
           <p className="text-xs sm:text-sm text-gray-300 text-center sm:text-left">
             © {new Date().getFullYear()} <span className="text-white font-semibold">SkilledHyre Labs</span>. All rights reserved.
           </p>

@@ -1,6 +1,7 @@
 import { connectToDatabase } from "@/utils/db";
 import Blog from "@/models/Blog";
 import News from "@/models/News";
+import { getAllActivePages, getAllCountries } from "@/data/international/registry";
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://skilledhyrelabs.com";
 
@@ -287,5 +288,27 @@ export default async function sitemap() {
     console.error("[Sitemap] Error fetching news items:", error);
   }
 
-  return [...staticRoutes, ...blogRoutes, ...newsRoutes];
+  // 8. International Market Hubs
+  const internationalHubRoutes = getAllCountries().map((country) => ({
+    url: `${baseUrl}/${country.code}`,
+    lastModified: new Date(),
+    changeFrequency: "weekly",
+    priority: 0.85,
+  }));
+
+  // 9. Active International Service Landing Pages
+  const internationalServiceRoutes = getAllActivePages().map((page) => ({
+    url: `${baseUrl}/${page.country}/${page.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "weekly",
+    priority: 0.9,
+  }));
+
+  return [
+    ...staticRoutes,
+    ...blogRoutes,
+    ...newsRoutes,
+    ...internationalHubRoutes,
+    ...internationalServiceRoutes,
+  ];
 }

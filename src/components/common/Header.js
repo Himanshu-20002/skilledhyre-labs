@@ -7,8 +7,16 @@ import {
   ChevronDownIcon,
   SparklesIcon,
   ArrowRightIcon,
+  GlobeAltIcon,
 } from "@heroicons/react/24/outline";
 import Image from "next/image";
+
+const globalMarkets = [
+  { name: "United States", flag: "🇺🇸", href: "/usa", desc: "EST/PST Overlap" },
+  { name: "United Kingdom", flag: "🇬🇧", href: "/uk", desc: "London GMT/BST" },
+  { name: "Australia", flag: "🇦🇺", href: "/au", desc: "Sydney AEST/AWST" },
+  { name: "UAE / Dubai", flag: "🇦🇪", href: "/uae", desc: "Gulf Standard Time" },
+];
 
 const navigation = [
   { name: "Home", href: "/" },
@@ -248,8 +256,45 @@ export default function Header() {
           ))}
         </div>
 
-        {/* CTA Button */}
-        <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+        {/* Desktop Regional Selector + CTA */}
+        <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:items-center lg:gap-3">
+          {/* Market Dropdown Pill */}
+          <div className="relative group/market">
+            <button
+              type="button"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#121624]/90 border border-white/10 hover:border-[#6366f1]/50 text-gray-300 hover:text-white transition-all text-xs font-medium backdrop-blur-md"
+              aria-label="Select Market"
+            >
+              <GlobeAltIcon className="w-3.5 h-3.5 text-cyan-400" />
+              <span>Global</span>
+              <ChevronDownIcon className="w-3 h-3 text-gray-400 group-hover/market:rotate-180 transition-transform duration-200" />
+            </button>
+
+            <div className="absolute right-0 top-full pt-2 w-56 opacity-0 translate-y-1 invisible group-hover/market:opacity-100 group-hover/market:translate-y-0 group-hover/market:visible transition-all duration-200 z-50">
+              <div className="p-2 rounded-2xl bg-[#0d111d]/95 backdrop-blur-2xl border border-white/10 shadow-2xl shadow-black/80 space-y-1">
+                <div className="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-gray-400">
+                  Regional Hubs
+                </div>
+                {globalMarkets.map((m) => (
+                  <Link
+                    key={m.name}
+                    href={m.href}
+                    className="flex items-center justify-between p-2 rounded-xl hover:bg-white/5 hover:text-cyan-400 text-gray-200 transition-colors text-xs"
+                  >
+                    <span className="flex items-center gap-2">
+                      <span>{m.flag}</span>
+                      <span className="font-medium">{m.name}</span>
+                    </span>
+                    <span className="text-[10px] text-gray-500 font-mono">
+                      {m.desc.split(" ")[0]}
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* CTA Button */}
           <Link
             href="/contact"
             className="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-xs font-semibold rounded-full group bg-gradient-to-br from-cyan-500 via-indigo-500 to-purple-600 group-hover:from-cyan-500 group-hover:to-purple-600 hover:text-white text-white shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/40 transition-all duration-300"
@@ -379,7 +424,29 @@ export default function Header() {
                     </div>
                   ))}
                 </div>
-                <div className="pt-6">
+
+                {/* Mobile Global Hubs Section */}
+                <div className="py-4 border-t border-white/10">
+                  <div className="px-3 pb-2.5 text-[11px] font-bold uppercase tracking-wider text-[#38bdf8] flex items-center gap-1.5">
+                    <GlobeAltIcon className="w-3.5 h-3.5" />
+                    <span>Regional Market Hubs</span>
+                  </div>
+                  <div className="grid grid-cols-2 gap-2 px-1">
+                    {globalMarkets.map((m) => (
+                      <Link
+                        key={m.name}
+                        href={m.href}
+                        className="flex items-center gap-2 p-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-xs text-gray-200 hover:text-cyan-400 hover:bg-white/10 transition-colors"
+                        onClick={() => setMobileMenuOpen(false)}
+                      >
+                        <span className="text-sm">{m.flag}</span>
+                        <span className="font-medium truncate">{m.name}</span>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="pt-4">
                   <Link
                     href="/contact"
                     className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-600 px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-cyan-500/25 hover:brightness-110 transition-all"
