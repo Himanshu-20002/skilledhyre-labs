@@ -159,14 +159,22 @@ export default function LocalizedLeadForm({ leadCapture, countryMeta, pageTitle,
 
                 <div>
                   <label className="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-2">
-                    Phone / WhatsApp
+                    Phone / WhatsApp {countryMeta?.flag ? `(${countryMeta.flag})` : ""}
                   </label>
                   <input
                     type="text"
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
-                    placeholder="+1 (555) 000-0000"
+                    placeholder={
+                      countryMeta?.code === "uk"
+                        ? "+44 20 7946 0000"
+                        : countryMeta?.code === "au"
+                        ? "+61 400 000 000"
+                        : countryMeta?.code === "uae"
+                        ? "+971 50 000 0000"
+                        : "+1 (555) 000-0000"
+                    }
                     className="w-full px-4 py-3 rounded-xl bg-[#090d18] border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-[#6366f1] transition-colors text-sm"
                   />
                 </div>

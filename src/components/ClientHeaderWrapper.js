@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation";
 import Header from "./common/Header";
 import Footer from "./common/Footer";
+import RegionalBanner from "./international/RegionalBanner";
 
 export default function ClientHeaderWrapper({ children }) {
   const pathname = usePathname();
@@ -17,6 +18,7 @@ export default function ClientHeaderWrapper({ children }) {
       <Header />
       <main className="flex-grow">{children}</main>
       <Footer />
+      <RegionalBanner />
     </>
   );
 }
